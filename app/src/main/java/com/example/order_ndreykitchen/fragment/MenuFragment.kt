@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import com.example.order_ndreykitchen.Keranjang
+import com.example.order_ndreykitchen.MenuDetail
 import com.example.order_ndreykitchen.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,6 +27,7 @@ class MenuFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var btnKeranjang: Button
+    private lateinit var goToMenuDetail: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,13 @@ class MenuFragment : Fragment() {
         btnKeranjang = view.findViewById(R.id.btnKeranjang)
         btnKeranjang.setOnClickListener {
             val intent = Intent(requireContext(), Keranjang::class.java)
+            startActivity(intent)
+        }
+
+        //go to menu detail
+        goToMenuDetail = view.findViewById(R.id.goToMenuDetail)
+        goToMenuDetail.setOnClickListener {
+            val intent = Intent(requireContext(), MenuDetail::class.java)
             startActivity(intent)
         }
     }
