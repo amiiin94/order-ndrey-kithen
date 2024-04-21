@@ -1,10 +1,13 @@
 package com.example.order_ndreykitchen.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import com.example.order_ndreykitchen.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +25,10 @@ class BerandaFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var searchBar: com.google.android.material.search.SearchBar
+    private lateinit var horizontalview : HorizontalScrollView
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +45,34 @@ class BerandaFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_beranda, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        horizontalview = view.findViewById(R.id.horizontalScrollView2)
+        startAutoScroll(horizontalview)
+    }
+
+
+    private fun startAutoScroll(horizontalScrollView: HorizontalScrollView) {
+        val scrollMax = horizontalScrollView.getChildAt(0).width - horizontalScrollView.width
+        val duration = 5000L // Adjust duration as needed
+
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                if (horizontalScrollView.scrollX < scrollMax) {
+                    horizontalScrollView.smoothScrollBy(1, 0)
+                    handler.postDelayed(this, duration)
+                } else {
+                    // Reset scroll to start position
+                    horizontalScrollView.scrollTo(0, 0)
+                    handler.postDelayed(this, duration)
+                }
+            }
+        }
+        handler.postDelayed(runnable, duration)
+    }
+
 
 
     companion object {

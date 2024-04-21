@@ -1,10 +1,13 @@
 package com.example.order_ndreykitchen.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import com.example.order_ndreykitchen.Keranjang
 import com.example.order_ndreykitchen.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +40,9 @@ class KeranjangFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_keranjang, container, false)
     }
+
+
+
 
     companion object {
         /**
