@@ -46,6 +46,7 @@
         app:startIconDrawable="@drawable/icon_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinput_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -69,6 +70,7 @@
         app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinput_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Kata Sandi"

@@ -1,10 +1,16 @@
 package com.example.order_ndreykitchen.fragment
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.Toast
+import com.example.order_ndreykitchen.MainActivity
 import com.example.order_ndreykitchen.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,6 +27,7 @@ class ProfilFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var btn_logout: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,23 +45,39 @@ class ProfilFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_profil, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfilFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Initialize Items
+        btn_logout = view.findViewById(R.id.btn_logout)
+
+        // Logout
+        btn_logout.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Konfirmasi")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, which ->
+                    logout()
                 }
-            }
+                .setNegativeButton("Tidak") { dialog, which ->
+
+                }
+                .show()
+        }
     }
+
+    private fun logout() {
+        val sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+
+        Toast.makeText(requireContext(), "Anda berhasil keluar", Toast.LENGTH_SHORT).show()
+    }
+
+
+
+
 }

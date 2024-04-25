@@ -7,30 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:boxStrokeColor="?attr/colorPrimary"
-        app:boxStrokeWidth="1dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textinput_notlp"
-        app:startIconDrawable="@drawable/icon_password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Kata Sandi"
-            android:inputType="textPassword"
-            android:paddingStart="48dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
@@ -56,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textinput_namaPanjang"
+        android:id="@+id/textinput_fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -70,9 +46,34 @@
         app:startIconDrawable="@drawable/icon_nama_panjang">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputEt_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Panjang"
+            android:paddingStart="48dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinput_notelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:boxStrokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textinput_fullname"
+        app:startIconDrawable="@drawable/icon_notlp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputEt_notelp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="No Telephone"
+            android:inputType="phone"
             android:paddingStart="48dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -88,19 +89,21 @@
         app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textinput_namaPanjang"
+        app:layout_constraintTop_toBottomOf="@+id/textinput_notelp"
         app:startIconDrawable="@drawable/icon_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputEt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:inputType="textEmailAddress"
             android:paddingStart="48dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textinput_notlp"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -108,21 +111,24 @@
         android:layout_marginEnd="16dp"
         app:boxStrokeColor="?attr/colorPrimary"
         app:boxStrokeWidth="1dp"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_email"
-        app:startIconDrawable="@drawable/icon_notlp">
+        app:startIconDrawable="@drawable/icon_password">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textinputEt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No Telephone"
+            android:hint="Kata Sandi"
+            android:inputType="textPassword"
             android:paddingStart="48dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="end"
@@ -141,7 +147,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="Login"
+            android:text="Register"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </FrameLayout>

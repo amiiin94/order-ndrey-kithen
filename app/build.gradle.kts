@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.cardview.v7)
     implementation(libs.volley)
+    implementation(libs.androidx.tools.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
