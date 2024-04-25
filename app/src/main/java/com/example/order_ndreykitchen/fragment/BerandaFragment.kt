@@ -1,5 +1,6 @@
 package com.example.order_ndreykitchen.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import android.widget.ImageView
+import com.example.order_ndreykitchen.Login
 import com.example.order_ndreykitchen.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +29,7 @@ class BerandaFragment : Fragment() {
     private var param2: String? = null
     private lateinit var searchBar: com.google.android.material.search.SearchBar
     private lateinit var horizontalview : HorizontalScrollView
+    private lateinit var iv_pp: ImageView
 
 
 
@@ -50,6 +54,12 @@ class BerandaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         horizontalview = view.findViewById(R.id.horizontalScrollView2)
         startAutoScroll(horizontalview)
+
+        iv_pp = view.findViewById(R.id.iv_pp)
+        iv_pp.setOnClickListener {
+            val intent = Intent(requireContext(), Login::class.java)
+            startActivity(intent)
+        }
     }
 
 
