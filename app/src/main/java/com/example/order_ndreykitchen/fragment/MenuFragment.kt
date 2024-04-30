@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -42,6 +44,7 @@ class MenuFragment : Fragment() {
     private lateinit var btnKeranjang: Button
     private val menuList = mutableListOf<MenuModel>()
     private lateinit var rv_menu: RecyclerView
+    private lateinit var etSearch: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +76,22 @@ class MenuFragment : Fragment() {
         }
 
         getAllMenus(requireContext())
+
+        // Search Menu
+        // Search
+        etSearch = view.findViewById(R.id.etSearch)
+        etSearch.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val searchName: String = etSearch.text.toString()
+                if (searchName.isNotEmpty()) {
+                    getMenuByName(requireContext(), searchName)
+                } else {
+                    getAllMenus(requireContext())
+                }
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
 
 
     }
@@ -123,5 +142,50 @@ class MenuFragment : Fragment() {
 
         val menuAdapter = MenuAdapter(menuList)
         rv_menu.adapter = menuAdapter
+    }
+
+    private fun getMenuByName(context: Context, nama: String) {
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/getMenuByName?nama=$nama"
+        val sr = StringRequest(
+            Request.Method.GET,
+            urlEndPoints,
+            { response ->
+                try {
+                    menuList.clear()
+                    val menus = JSONArray(response)
+                    for (i in 0 until menus.length()) {
+                        val menuJson = menus.getJSONObject(i)
+
+                        val id_menu = menuJson.getString("_id")
+                        val nama_menu = menuJson.getString("nama")
+                        val harga_menu = menuJson.getInt("harga")
+                        val images = menuJson.getString("image")
+                        val deskripsi_menu = menuJson.getString("deskripsi")
+                        val kategori_menu = menuJson.getString("kategori")
+
+
+                        val menu = MenuModel(id_menu, nama_menu, harga_menu, images, deskripsi_menu, kategori_menu)
+                        menuList.add(menu)
+                    }
+                    Log.d("MenuFragment", "menuList: $menuList")
+                    displayMenu()
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(context, error.toString().trim { it <= ' ' }, Toast.LENGTH_SHORT).show()
+            }
+        )
+        val requestQueue = Volley.newRequestQueue(context)
+        requestQueue.add(sr)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            MenuFragment().apply {
+                // No need to pass any arguments
+            }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.order_ndreykitchen
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,14 +9,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.order_ndreykitchen.databinding.ActivityMainBinding
 import com.example.order_ndreykitchen.fragment.BerandaFragment
-import com.example.order_ndreykitchen.fragment.RiwayatFragment
 import com.example.order_ndreykitchen.fragment.MenuFragment
 import com.example.order_ndreykitchen.fragment.ProfilFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.order_ndreykitchen.fragment.RiwayatFragment
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE)
+        val email_user = sharedPreferences.getString("email_user", "")
+
         // Set up bottom navigation listener
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -44,12 +47,22 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(MenuFragment())
                     true
                 }
-                R.id.keranjang -> {
-                    replaceFragment(RiwayatFragment())
+                R.id.riwayat -> {
+                    if (email_user.isNullOrEmpty()) {
+                        // Email kosong, arahkan ke layar login
+                        startActivity(Intent(this, Login::class.java))
+                    } else {
+                        replaceFragment(RiwayatFragment())
+                    }
                     true
                 }
                 R.id.profil -> {
-                    replaceFragment(ProfilFragment())
+                    if (email_user.isNullOrEmpty()) {
+                        // Email kosong, arahkan ke layar login
+                        startActivity(Intent(this, Login::class.java))
+                    } else {
+                        replaceFragment(ProfilFragment())
+                    }
                     true
                 }
                 else -> false

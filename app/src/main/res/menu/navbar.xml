@@ -11,7 +11,7 @@
         android:enabled="true"
         android:icon="@drawable/selector_menu" />
 
-    <item android:id="@+id/keranjang"
+    <item android:id="@+id/riwayat"
         android:title="Riwayat"
         android:enabled="true"
         android:icon="@drawable/selector_riwayat" />
