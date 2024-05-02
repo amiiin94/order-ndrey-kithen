@@ -47,6 +47,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/selectAll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp" />
@@ -123,11 +124,11 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/tvTotalHarga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="Rp 12.000"
+                    android:text="Rp0"
                     android:textSize="16sp" />
             </LinearLayout>
 

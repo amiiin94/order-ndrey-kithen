@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -23,12 +24,14 @@ import com.example.order_ndreykitchen.Model.MenuModel
 import org.json.JSONArray
 import org.json.JSONException
 
-class Cart : AppCompatActivity() {
+class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var id_user: String
     private val cartList = mutableListOf<CartModel>()
     private lateinit var rvCart: RecyclerView
+    private var totalHarga = 0 // Declare totalHarga property here
     var isFirstClick = true
+    private lateinit var selectAll: CheckBox
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +48,14 @@ class Cart : AppCompatActivity() {
 
         rvCart = findViewById(R.id.rvCart)
 
+        selectAll = findViewById(R.id.selectAll)
+        selectAll.setOnCheckedChangeListener { _, isChecked ->
+            selectAllItems(isChecked)
+        }
+
 
         getOrderById()
+        calculateTotalHarga()
 
         }
 
@@ -99,9 +108,37 @@ class Cart : AppCompatActivity() {
         val verticalSpace = resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
         rvCart.addItemDecoration(SpaceItemDecoration(horizontalSpace, verticalSpace))
 
-        val cartAdapter = CartAdapter(cartList, this)
+        val cartAdapter = CartAdapter(cartList, this, this)
         rvCart.adapter = cartAdapter
     }
+
+    override fun onQuantityChanged() {
+        calculateTotalHarga()
+    }
+
+    private fun calculateTotalHarga() {
+        totalHarga = 0 // Reset totalHarga before calculating
+        for (cart in cartList) {
+            // Check if the checkbox is checked for the item
+            if (cart.isChecked) {
+                totalHarga += cart.harga_menu?.times(cart.quantity) ?: 0
+            }
+        }
+        val totalHargaTextView: TextView = findViewById(R.id.tvTotalHarga)
+        totalHargaTextView.text = "Rp$totalHarga"
+    }
+
+    private fun selectAllItems(isChecked: Boolean) {
+        for (cart in cartList) {
+            cart.isChecked = isChecked
+        }
+        // Notify the adapter of the change
+        rvCart.adapter?.notifyDataSetChanged()
+        // Calculate total price after selecting/deselecting all items
+        calculateTotalHarga()
+    }
+
+
 
 
 }

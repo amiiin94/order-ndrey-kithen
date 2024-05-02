@@ -13,6 +13,7 @@ import com.example.order_ndreykitchen.R
 import com.squareup.picasso.Picasso
 
 class CartAdapter(private val cartItems: List<CartModel>,
+                  private val quantityChangeListener: QuantityChangeListener,
                   private val activity: Cart) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,8 +35,7 @@ class CartAdapter(private val cartItems: List<CartModel>,
             // Implement your delete logic here
         }
 
-        // Implement click listeners for plus and minus buttons
-        // You can use holder.plusBtn and holder.minusBtn
+
     }
 
     override fun getItemCount(): Int {
@@ -52,6 +52,7 @@ class CartAdapter(private val cartItems: List<CartModel>,
         val namaCart: TextView = itemView.findViewById(R.id.nama_cart)
         val hargaCart: TextView = itemView.findViewById(R.id.harga_cart)
         val quantityTextView: TextView = itemView.findViewById(R.id.quantity)
+        val checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
         init {
             // Plus button click listener
@@ -60,11 +61,7 @@ class CartAdapter(private val cartItems: List<CartModel>,
                 quantity++
                 quantityTextView.text = quantity.toString()
                 cartItems[adapterPosition].quantity = quantity // Update quantity in the corresponding MenuModel
-                if (activity.isFirstClick) {
-//                    activity.postIdRecord()
-                    activity.isFirstClick = false // Update the flag to indicate that the button has been clicked
-                }
-//                quantityChangeListener.onQuantityChanged() // Notify activity of quantity change
+                quantityChangeListener.onQuantityChanged() // Notify activity of quantity change
             }
 
             // Minus button click listener
@@ -73,14 +70,33 @@ class CartAdapter(private val cartItems: List<CartModel>,
                 if (quantity > 0) {
                     quantity--
                     quantityTextView.text = quantity.toString()
-//                    menuList[adapterPosition].quantity = quantity // Update quantity in the corresponding MenuModel
-//                    quantityChangeListener.onQuantityChanged() // Notify activity of quantity change
+                    cartItems[adapterPosition].quantity = quantity // Update quantity in the corresponding MenuModel
+                    quantityChangeListener.onQuantityChanged() // Notify activity of quantity change
+                }
+            }
+
+            checkbox.setOnCheckedChangeListener { _, isChecked ->
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val cartItem = cartItems[position]
+                    cartItem.isChecked = isChecked
+                    quantityChangeListener.onQuantityChanged() // Notify activity of checkbox state change
+                }
+            }
+
+            fun bind(cartItem: CartModel) {
+                // Bind data to views
+                checkbox.isChecked = cartItem.isChecked
+                // Set an OnClickListener for individual checkboxes (if needed)
+                checkbox.setOnClickListener {
+                    cartItem.isChecked = checkbox.isChecked
+                    quantityChangeListener.onQuantityChanged()
                 }
             }
         }
     }
 
-//    interface QuantityChangeListener {
-//        fun onQuantityChanged()
-//    }
+    interface QuantityChangeListener {
+        fun onQuantityChanged()
+    }
 }
