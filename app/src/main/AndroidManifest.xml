@@ -25,7 +25,7 @@
             android:name=".MenuDetail"
             android:exported="false" />
         <activity
-            android:name=".Keranjang"
+            android:name=".Cart"
             android:exported="false" />
         <activity
             android:name=".Opening"

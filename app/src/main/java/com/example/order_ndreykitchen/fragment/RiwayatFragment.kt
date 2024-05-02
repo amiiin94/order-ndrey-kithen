@@ -65,12 +65,12 @@ class RiwayatFragment : Fragment() {
 
 
         getAllOrderList(requireContext())
-        getAllOrder(requireContext())
+        getOrderById(requireContext())
 
 
     }
 
-    private fun getAllOrder(context: Context) {
+    private fun getOrderById(context: Context) {
 
         val id_user = sharedPreferences.getString("id_user", "")
         val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/getHistoryByUserId?id_user=$id_user"

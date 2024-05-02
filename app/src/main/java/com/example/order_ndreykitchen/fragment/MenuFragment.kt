@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +18,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.order_ndreykitchen.Adapter.MenuAdapter
-import com.example.order_ndreykitchen.Keranjang
-import com.example.order_ndreykitchen.MenuDetail
+import com.example.order_ndreykitchen.Cart
 import com.example.order_ndreykitchen.Model.MenuModel
 import com.example.order_ndreykitchen.R
 import com.example.order_ndreykitchen.SpaceItemDecoration
@@ -71,7 +69,7 @@ class MenuFragment : Fragment() {
         // Go to Keranjang
         btnKeranjang = view.findViewById(R.id.btnKeranjang)
         btnKeranjang.setOnClickListener {
-            val intent = Intent(requireContext(), Keranjang::class.java)
+            val intent = Intent(requireContext(), Cart::class.java)
             startActivity(intent)
         }
 

@@ -1,18 +1,15 @@
 package com.example.order_ndreykitchen.Adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.order_ndreykitchen.Model.OrderItemModel
 import com.example.order_ndreykitchen.Model.OrderModel
 import com.example.order_ndreykitchen.R
-import org.w3c.dom.Text
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale

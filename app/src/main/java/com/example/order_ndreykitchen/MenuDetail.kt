@@ -1,14 +1,22 @@
 package com.example.order_ndreykitchen
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
+import org.json.JSONException
+import org.json.JSONObject
 
 class MenuDetail : AppCompatActivity() {
     private lateinit var iv_image_menu_detail: ImageView
@@ -20,12 +28,14 @@ class MenuDetail : AppCompatActivity() {
     private lateinit var btn_tambahKeranjang: FrameLayout
     private lateinit var btn_back: ImageView
 
-    private lateinit var menuId: String
+    private lateinit var id_menu: String
     private lateinit var nama: String
     private var harga: Int = 0
     private lateinit var image: String
     private lateinit var deskripsi: String
     private lateinit var kategori: String
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var id_user: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +49,10 @@ class MenuDetail : AppCompatActivity() {
 
         inizializeItems()
         showDataMenu()
+
+        btn_tambahKeranjang.setOnClickListener {
+            postCart(id_user, id_menu)
+        }
     }
 
     private fun inizializeItems() {
@@ -50,10 +64,14 @@ class MenuDetail : AppCompatActivity() {
         btn_back = findViewById(R.id.btn_back)
         btn_beliLangsung = findViewById(R.id.btn_beliLangsung)
         btn_tambahKeranjang = findViewById(R.id.btn_tambahKeranjang)
+
+        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        id_user = sharedPreferences.getString("id_user", "") ?: ""
     }
 
     private fun showDataMenu() {
         // Retrieve data from intent
+        id_menu = intent.getStringExtra("id_menu") ?: ""
         nama = intent.getStringExtra("nama_menu") ?: ""
         harga = intent.getIntExtra("harga_menu", 0)
         image = intent.getStringExtra("image_menu") ?: ""
@@ -66,5 +84,40 @@ class MenuDetail : AppCompatActivity() {
         tv_deskripsi_menu_detail.setText(deskripsi)
         Picasso.get().load(image).into(iv_image_menu_detail)
 
+    }
+
+    fun postCart(id_user: String, id_menu: String) {
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/postCart?id_user=$id_user&id_menu=$id_menu"
+
+        val sr = StringRequest(
+            Request.Method.POST,
+            urlEndPoints,
+            { response ->
+                try {
+                    val jsonResponse = JSONObject(response)
+
+                    // Check if the response contains an error field
+                    if (jsonResponse.has("error")) {
+                        val errorMessage = jsonResponse.getString("error")
+                        // Display toast with the error message
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Registration successful
+                        Toast.makeText(
+                            this,
+                            "Added Product to Cart!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: JSONException) {
+                    // Handle JSON parsing error
+                    e.printStackTrace()
+                    Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+                }
+            },
+            { Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show() }
+        )
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(sr)
     }
 }
