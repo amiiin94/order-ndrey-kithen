@@ -84,11 +84,11 @@ class CartAdapter(private val cartItems: List<CartModel>,
                 }
             }
 
-            fun bind(cartItem: CartModel) {
-                // Bind data to views
-                checkbox.isChecked = cartItem.isChecked
-                // Set an OnClickListener for individual checkboxes (if needed)
-                checkbox.setOnClickListener {
+            // Set an OnClickListener for individual checkboxes
+            checkbox.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val cartItem = cartItems[position]
                     cartItem.isChecked = checkbox.isChecked
                     quantityChangeListener.onQuantityChanged()
                 }

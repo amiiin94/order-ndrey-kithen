@@ -2,10 +2,12 @@ package com.example.order_ndreykitchen
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.CheckBox
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -32,6 +34,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     private var totalHarga = 0 // Declare totalHarga property here
     var isFirstClick = true
     private lateinit var selectAll: CheckBox
+    private lateinit var btn_purchase: FrameLayout
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,12 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
         selectAll = findViewById(R.id.selectAll)
         selectAll.setOnCheckedChangeListener { _, isChecked ->
             selectAllItems(isChecked)
+        }
+
+        btn_purchase = findViewById(R.id.btn_purchase)
+        btn_purchase.setOnClickListener {
+            val intent = Intent(this, PurchaseDetail::class.java)
+            startActivity(intent)
         }
 
 
