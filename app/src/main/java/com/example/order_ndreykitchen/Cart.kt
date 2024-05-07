@@ -34,7 +34,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     private var totalHarga = 0 // Declare totalHarga property here
     var isFirstClick = true
     private lateinit var selectAll: CheckBox
-    private lateinit var btn_purchase: FrameLayout
+    private lateinit var btn_bayar: FrameLayout
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +56,35 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
             selectAllItems(isChecked)
         }
 
-        btn_purchase = findViewById(R.id.btn_purchase)
-        btn_purchase.setOnClickListener {
-            val intent = Intent(this, PurchaseDetail::class.java)
-            startActivity(intent)
+        btn_bayar = findViewById(R.id.btn_bayar)
+        btn_bayar.setOnClickListener {
+            // Filter the cartList to get selected items
+            val selectedItems = cartList.filter { it.isChecked }
+
+            // Calculate totalHarga
+            val totalHarga = calculateTotalHarga()
+
+            // Check if any item is selected
+            if (selectedItems.isNotEmpty()) {
+                // Create an Intent to start the next activity
+                val intent = Intent(this, PurchaseDetail::class.java)
+
+                // Convert the selectedItems list to serializable format and pass it to the next activity
+                intent.putExtra("selectedItems", ArrayList(selectedItems))
+
+                // Pass the totalHarga to the next activity
+
+                // Start the next activity
+                startActivity(intent)
+            } else {
+                // Show a toast message if no item is selected
+                Toast.makeText(this, "No item selected", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+
+
 
 
         getOrderById()

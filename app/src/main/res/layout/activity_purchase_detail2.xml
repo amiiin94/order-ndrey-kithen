@@ -23,6 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18dp"
         android:text="Konfirmasi Pembayaran"
         app:layout_constraintBottom_toBottomOf="@+id/imageView26"
         app:layout_constraintStart_toEndOf="@+id/imageView26"
@@ -117,6 +119,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingVertical="12sp"
         android:paddingHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
@@ -141,6 +145,7 @@
 
             <TextView
                 android:id="@+id/textView34"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="a/n ANDREY AKBAR MAULANA" />
@@ -149,6 +154,7 @@
                 android:id="@+id/textView35"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Salin Nomor"
                 android:textColor="@color/biru" />
         </LinearLayout>
