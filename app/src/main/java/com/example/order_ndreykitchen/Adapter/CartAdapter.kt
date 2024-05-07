@@ -27,7 +27,7 @@ class CartAdapter(private val cartItems: List<CartModel>,
         holder.kategoriCart.text = cartItem.kategori_menu
         holder.namaCart.text = cartItem.nama_menu
         holder.hargaCart.text = cartItem.harga_menu.toString()
-        holder.quantityTextView.text = cartItem.quantity_cart.toString()
+        holder.quantityTextView.text = cartItem.quantity.toString()
         Picasso.get().load(cartItem.image_menu).into(holder.imageCart)
 //        holder.checkbox.isChecked = cartItem.isChecked
 
@@ -52,7 +52,6 @@ class CartAdapter(private val cartItems: List<CartModel>,
         val namaCart: TextView = itemView.findViewById(R.id.nama_cart)
         val hargaCart: TextView = itemView.findViewById(R.id.harga_cart)
         val quantityTextView: TextView = itemView.findViewById(R.id.quantity)
-        val checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
 
         init {
             // Plus button click listener

@@ -2,6 +2,7 @@ package com.example.order_ndreykitchen
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -82,6 +83,9 @@ class Login : AppCompatActivity() {
                     editor.putString("email_user", email_user)
                     editor.putString("password_user", password_user)
                     editor.apply()
+
+                    val id_user1 = sharedPreferences.getString("id_user", "")
+
 
                     Toast.makeText(this@Login, "Login successful!", Toast.LENGTH_SHORT).show()
 

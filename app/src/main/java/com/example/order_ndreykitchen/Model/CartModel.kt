@@ -12,7 +12,7 @@ data class CartModel(
     val harga_menu: Int? = null,
     val image_menu: String? = null,
     val kategori_menu: String? = null,
-    var quantity: Int = 0,
+    var quantity: Int = 1,
     var isChecked: Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

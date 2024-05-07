@@ -46,8 +46,12 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
             insets
         }
 
+
+
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         id_user = sharedPreferences.getString("id_user", "") ?: ""
+
+        id_user?.let { Log.d("id_user", it) }
 
         rvCart = findViewById(R.id.rvCart)
 

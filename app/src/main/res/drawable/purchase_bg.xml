@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define the shape with background color, border, and corner radius -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#ffffff" /> <!-- Background color -->
+            <stroke
+                android:width="0.7dp"
+                android:color="#D5D5D5" /> <!-- Border color -->
+            <corners android:radius="10dp" /> <!-- Corner radius -->
+            <size
+                android:width="106dp"
+                android:height="78dp" />
+        </shape>
+    </item>
+    <!-- Define the drawable to be placed in the middle -->
+</layer-list>

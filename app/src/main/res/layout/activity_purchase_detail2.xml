@@ -78,10 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="No. Pesanan" />
+                android:text="ID Pesanan" />
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/tvIdPesanan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -105,7 +105,7 @@
                 android:text="Total Tagihan" />
 
             <TextView
-                android:id="@+id/textView32"
+                android:id="@+id/tvTotalHarga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <ImageView
-            android:id="@+id/imageView29"
+            android:id="@+id/ivPayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logo_dana" />
@@ -138,20 +138,20 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/tvPaymentDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="089735353535" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/tvNamaPembeli"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="a/n ANDREY AKBAR MAULANA" />
 
             <TextView
-                android:id="@+id/textView35"
+                android:id="@+id/tvSalinNomor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
