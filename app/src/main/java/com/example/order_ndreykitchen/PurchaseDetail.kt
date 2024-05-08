@@ -68,6 +68,7 @@ class PurchaseDetail : AppCompatActivity() {
             val intent = Intent(this, PurchaseDetail2::class.java)
             intent.putExtra("totalHarga", totalHarga) // Pass totalHarga as extra
             intent.putExtra("payment", payment) // Pass payment as extra
+            intent.putExtra("selectedItems", ArrayList(selectedItems))
             startActivity(intent)
             postIdOrder()
         }
