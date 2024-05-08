@@ -1,7 +1,10 @@
 package com.example.order_ndreykitchen
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +17,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.order_ndreykitchen.Model.CartModel
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -30,6 +34,9 @@ class PurchaseDetail2 : AppCompatActivity() {
     private var totalHarga: Int = 0
     private var payment: String = ""
     private lateinit var selectedItems: ArrayList<CartModel> // Declare selectedItems property here
+    private lateinit var sharedPreferences: SharedPreferences
+    private var id_order: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +47,7 @@ class PurchaseDetail2 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
 
         findViewById()
 
@@ -63,10 +71,10 @@ class PurchaseDetail2 : AppCompatActivity() {
 
         btn_sudah_bayar.setOnClickListener {
             postIdRecord()
-
+            putStatusOrder()
         }
 
-
+        getLatestIdRecord()
     }
 
     private fun findViewById() {
@@ -130,9 +138,6 @@ class PurchaseDetail2 : AppCompatActivity() {
                     // Update successful
                     Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
 
-                    // Redirect to the main activity
-                    val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
-                    startActivity(mainActivityIntent)
                 } else {
                     // Display toast with the response message
                     Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
@@ -190,5 +195,69 @@ class PurchaseDetail2 : AppCompatActivity() {
         }
     }
 
+    private fun getLatestIdRecord() {
+        val id_user = sharedPreferences.getString("id_user", "") ?: ""
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/getLatestidOrderByIdUser?id_user=$id_user"
+        val sr = StringRequest(
+            Request.Method.GET,
+            urlEndPoints,
+            { response ->
+                try {
+                    // Parse the JSON response as an array
+                    val jsonArray = JSONArray(response)
+                    // Check if the array is not empty
+                    if (jsonArray.length() > 0) {
+                        // Get the first object from the array
+                        val jsonObject = jsonArray.getJSONObject(0)
+                        // Extract the "_id" field from the object
+                        id_order = jsonObject.getString("_id")
+                        // Set the id_order text view
+                        tvIdPesanan.text = id_order
+                    } else {
+                        // Handle case when the array is empty
+                        Toast.makeText(this@PurchaseDetail2, "Empty response", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            },
+            { error ->
+                Toast.makeText(this@PurchaseDetail2, error.toString().trim(), Toast.LENGTH_SHORT).show()
+            }
+        )
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+        requestQueue.add(sr)
+    }
 
+    fun putStatusOrder() {
+        val status = "Pesanan Diproses"
+
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/putStatusOrder?_id=$id_order&status=$status"
+
+        val sr = StringRequest(
+            Request.Method.PUT,
+            urlEndPoints,
+            { response ->
+                if (response == "\"Total harga updated successfully for the last document.\"") {
+                    // Update successful
+                    Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
+
+                    // Redirect to the main activity
+                    val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
+                    startActivity(mainActivityIntent)
+                } else {
+                    // Display toast with the response message
+                    Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
+                }
+            },
+            { error ->
+                // Handle Volley error
+                error.printStackTrace()
+                Toast.makeText(this@PurchaseDetail2, "Failed: " + error.message, Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+        requestQueue.add(sr)
+    }
 }

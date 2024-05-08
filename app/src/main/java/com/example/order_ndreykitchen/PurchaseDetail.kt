@@ -20,6 +20,8 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.order_ndreykitchen.Adapter.PurchaseDetailAdapter
 import com.example.order_ndreykitchen.Model.CartModel
+import com.example.order_ndreykitchen.Model.OrderModel
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.NumberFormat
@@ -273,6 +275,8 @@ class PurchaseDetail : AppCompatActivity() {
             }
         }
     }
+
+
 
 
 
