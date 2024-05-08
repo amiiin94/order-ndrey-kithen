@@ -76,8 +76,6 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
                 // Convert the selectedItems list to serializable format and pass it to the next activity
                 intent.putExtra("selectedItems", ArrayList(selectedItems))
 
-                // Pass the totalHarga to the next activity
-
                 // Start the next activity
                 startActivity(intent)
             } else {

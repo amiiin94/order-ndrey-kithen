@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.Choreographer.FrameData
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.order_ndreykitchen.Adapter.CartAdapter
 import com.example.order_ndreykitchen.Adapter.PurchaseDetailAdapter
 import com.example.order_ndreykitchen.Model.CartModel
 import org.json.JSONException
@@ -38,7 +36,7 @@ class PurchaseDetail : AppCompatActivity() {
     private lateinit var tvTotalHarga: TextView
     private lateinit var rv: RecyclerView
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var payment: String
+    private var payment: String = "dana"
 
     private lateinit var purchase_dana: FrameLayout
     private lateinit var purchase_shopeepay: FrameLayout
@@ -67,10 +65,13 @@ class PurchaseDetail : AppCompatActivity() {
 
         btn_bayar_sekarang = findViewById(R.id.btn_bayar_sekarang)
         btn_bayar_sekarang.setOnClickListener {
-            postIdOrder()
             val intent = Intent(this, PurchaseDetail2::class.java)
+            intent.putExtra("totalHarga", totalHarga) // Pass totalHarga as extra
+            intent.putExtra("payment", payment) // Pass payment as extra
             startActivity(intent)
+            postIdOrder()
         }
+
 
         // Check if selectedItems is not null
         Log.d("selected Items", selectedItems.toString())
@@ -215,6 +216,7 @@ class PurchaseDetail : AppCompatActivity() {
                             "record id have been added",
                             Toast.LENGTH_SHORT
                         ).show()
+                        postItemsWithQuantity()
                     }
                 } catch (e: JSONException) {
                     // Handle JSON parsing error
@@ -226,6 +228,49 @@ class PurchaseDetail : AppCompatActivity() {
 
         val requestQueue = Volley.newRequestQueue(applicationContext)
         requestQueue.add(sr)
+    }
+
+    fun postItemOrder(item: String?, quantity: Int) {
+        val id_user = sharedPreferences.getString("id_user", "") ?: ""
+
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/postItemOrder?id_user=$id_user&item=$item&quantity=$quantity"
+
+        val sr = StringRequest(
+            Request.Method.POST,
+            urlEndPoints,
+            { response ->
+                try {
+                    val jsonResponse = JSONObject(response)
+
+                    // Check if the response contains an error field
+                    if (jsonResponse.has("error")) {
+                        val errorMessage = jsonResponse.getString("error")
+                        // Display toast with the error message
+                        Toast.makeText(this@PurchaseDetail, errorMessage, Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Post successful
+                        Toast.makeText(this@PurchaseDetail, "Item posted successfully", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: JSONException) {
+                    // Handle JSON parsing error
+                    e.printStackTrace()
+                    Toast.makeText(this@PurchaseDetail, "Failed to post item", Toast.LENGTH_SHORT).show()
+                }
+            }
+        ) {
+            Toast.makeText(this@PurchaseDetail, "Failed to post item", Toast.LENGTH_SHORT).show()
+        }
+
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+        requestQueue.add(sr)
+    }
+
+    fun postItemsWithQuantity() {
+        for (menu in selectedItems) {
+            if (menu.quantity > 0) {
+                postItemOrder(menu.nama_menu, menu.quantity)
+            }
+        }
     }
 
 
