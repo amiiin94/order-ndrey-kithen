@@ -25,24 +25,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:src="@drawable/logo_nama"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_pp"
+                <TextView
+                    android:id="@+id/picture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/pp"
+                    android:background="@drawable/ic_baseline_circle_24"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:paddingTop="7dp"
+                    android:text="F"
+                    android:textColor="@color/orange_mainColor"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/imageView12" />
 
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/etSearch"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="12dp"
@@ -59,7 +65,7 @@
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/iconButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+                    app:layout_constraintTop_toBottomOf="@+id/picture" />
 
                 <Button
                     android:id="@+id/iconButton"
@@ -68,9 +74,9 @@
                     android:layout_height="48dp"
                     android:layout_marginEnd="16dp"
                     app:icon="@drawable/icon_filter"
-                    app:layout_constraintBottom_toBottomOf="@+id/editTextText"
+                    app:layout_constraintBottom_toBottomOf="@+id/etSearch"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editTextText" />
+                    app:layout_constraintTop_toTopOf="@+id/etSearch" />
 
                 <TextView
                     android:id="@+id/textView2"
@@ -82,7 +88,7 @@
                     android:text="Kategori Makanan"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+                    app:layout_constraintTop_toBottomOf="@+id/etSearch" />
 
                 <HorizontalScrollView
                     android:id="@+id/horizontalScrollView"
@@ -262,217 +268,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/textView8" />
 
-                <HorizontalScrollView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card4"
-                            style="?attr/materialCardViewFilledStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="220dp"
-                            android:layout_margin="16dp"
-                            tools:layout_editor_absoluteX="8dp"
-                            tools:layout_editor_absoluteY="440dp">>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="110dp"
-                                    android:contentDescription="tes"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/gambar_menu" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical"
-                                    android:padding="12dp">
-
-                                    <!-- Title, secondary and supporting text -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/poppins_bold"
-                                        android:text="Nasi Ayam Goreng Komplit"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:text="Kategori"
-                                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                                        android:textColor="?android:attr/textColorSecondary"
-                                        android:textSize="12sp" />
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="25dp"
-                                        android:layout_marginTop="5dp"
-                                        android:orientation="horizontal">
-
-                                        <androidx.constraintlayout.widget.ConstraintLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="25dp">
-
-                                            <TextView
-                                                android:layout_width="0dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:gravity="center_vertical"
-                                                android:text="Rp 12.000,00"
-                                                android:textAppearance="?attr/textAppearanceBodyMedium"
-                                                android:textColor="@color/orange_mainColor"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintEnd_toStartOf="@+id/cart2"
-                                                app:layout_constraintStart_toStartOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-
-                                            <ImageView
-                                                android:id="@+id/cart2"
-                                                android:layout_width="24dp"
-                                                android:layout_height="24dp"
-                                                android:importantForAccessibility="no"
-                                                android:src="@drawable/icon_chart"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintEnd_toEndOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-                                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <!-- Buttons -->
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/card"
-                            style="?attr/materialCardViewFilledStyle"
-                            android:layout_width="175dp"
-                            android:layout_height="230dp"
-                            android:layout_margin="16dp"
-                            tools:layout_editor_absoluteX="8dp"
-                            tools:layout_editor_absoluteY="440dp">>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="110dp"
-                                    android:contentDescription="tes"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/gambar_menu" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="12dp">
-
-                                    <!-- Title, secondary and supporting text -->
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/poppins_bold"
-                                        android:text="Nasi Ayam Goreng Komplit"
-                                        android:textSize="12sp" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="5dp"
-                                        android:text="Kategori"
-                                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                                        android:textColor="?android:attr/textColorSecondary"
-                                        android:textSize="12sp" />
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="25dp"
-                                        android:layout_marginTop="5dp"
-                                        android:orientation="horizontal">
-
-                                        <androidx.constraintlayout.widget.ConstraintLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="25dp">
-
-                                            <TextView
-                                                android:layout_width="0dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_weight="1"
-                                                android:gravity="center_vertical"
-                                                android:text="Rp 12.000,00"
-                                                android:textAppearance="?attr/textAppearanceBodyMedium"
-                                                android:textColor="@color/orange_mainColor"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintEnd_toStartOf="@+id/cart3"
-                                                app:layout_constraintStart_toStartOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-
-                                            <ImageView
-                                                android:id="@+id/cart3"
-                                                android:layout_width="24dp"
-                                                android:layout_height="24dp"
-                                                android:importantForAccessibility="no"
-                                                android:src="@drawable/icon_chart"
-                                                app:layout_constraintBottom_toBottomOf="parent"
-                                                app:layout_constraintEnd_toEndOf="parent"
-                                                app:layout_constraintTop_toTopOf="parent" />
-                                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <!-- Buttons -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:orientation="horizontal">
-
-                                    <com.google.android.material.button.MaterialButton
-                                        style="?attr/borderlessButtonStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="8dp"
-                                        android:text="tes" />
-
-                                    <com.google.android.material.button.MaterialButton
-                                        style="?attr/borderlessButtonStyle"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="tes" />
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                        </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
-                </HorizontalScrollView>
+                    app:layout_constraintTop_toBottomOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.order_ndreykitchen
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -17,6 +18,9 @@ import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 
 class MenuDetail : AppCompatActivity() {
     private lateinit var iv_image_menu_detail: ImageView
@@ -27,6 +31,7 @@ class MenuDetail : AppCompatActivity() {
     private lateinit var btn_beliLangsung: FrameLayout
     private lateinit var btn_tambahKeranjang: FrameLayout
     private lateinit var btn_back: ImageView
+    private lateinit var tvNamaMenu: TextView
 
     private lateinit var id_menu: String
     private lateinit var nama: String
@@ -53,6 +58,12 @@ class MenuDetail : AppCompatActivity() {
         btn_tambahKeranjang.setOnClickListener {
             postCart(id_user, id_menu)
         }
+
+        btn_beliLangsung.setOnClickListener {
+            postCart(id_user, id_menu)
+            val intent = Intent(this, Cart::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun inizializeItems() {
@@ -64,6 +75,7 @@ class MenuDetail : AppCompatActivity() {
         btn_back = findViewById(R.id.btn_back)
         btn_beliLangsung = findViewById(R.id.btn_beliLangsung)
         btn_tambahKeranjang = findViewById(R.id.btn_tambahKeranjang)
+        tvNamaMenu = findViewById(R.id.tvNamaMenu)
 
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         id_user = sharedPreferences.getString("id_user", "") ?: ""
@@ -80,9 +92,10 @@ class MenuDetail : AppCompatActivity() {
 
         tv_nama_menu_detail.setText(nama)
         tv_kategori_menu_detail.setText(kategori)
-        tv_harga_menu_detail.setText(harga.toString())
+        tv_harga_menu_detail.setText(formatToRupiah(harga))
         tv_deskripsi_menu_detail.setText(deskripsi)
         Picasso.get().load(image).into(iv_image_menu_detail)
+        tvNamaMenu.setText(nama)
 
     }
 
@@ -119,5 +132,14 @@ class MenuDetail : AppCompatActivity() {
         )
         val requestQueue = Volley.newRequestQueue(this)
         requestQueue.add(sr)
+    }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        return "Rp. $formattedValue"
     }
 }

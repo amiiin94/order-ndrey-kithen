@@ -91,6 +91,18 @@ class MenuFragment : Fragment() {
             return@setOnEditorActionListener false
         }
 
+        // Get search query if passed
+        val searchQuery = arguments?.getString("searchQuery")
+
+        if (!searchQuery.isNullOrEmpty()) {
+            // Perform search using the received query
+            // Call the appropriate function here to search menus by name
+            getMenuByName(requireContext(), searchQuery)
+        } else {
+            // Load all menus by default
+            getAllMenus(requireContext())
+        }
+
 
     }
 
@@ -181,9 +193,11 @@ class MenuFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(searchQuery: String?) =
             MenuFragment().apply {
-                // No need to pass any arguments
+                arguments = Bundle().apply {
+                    putString("searchQuery", searchQuery)
+                }
             }
     }
 }

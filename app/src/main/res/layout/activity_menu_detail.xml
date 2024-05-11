@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MenuDetail">
 
+    <TextView
+        android:id="@+id/tvNamaMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="..."
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_back" />
+
     <ImageView
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -68,9 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Deskripsi"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
+        android:text="Deskripsi"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_harga_menu_detail" />

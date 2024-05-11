@@ -143,7 +143,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
         val verticalSpace = resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
         rvCart.addItemDecoration(SpaceItemDecoration(horizontalSpace, verticalSpace))
 
-        val cartAdapter = CartAdapter(cartList, this, this)
+        val cartAdapter = CartAdapter(cartList, this, this, this)
         rvCart.adapter = cartAdapter
     }
 
