@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuDetail">
+    tools:context=".MenuDetail"
+    android:background="@color/abu_bg">
 
     <TextView
         android:id="@+id/tvNamaMenu"

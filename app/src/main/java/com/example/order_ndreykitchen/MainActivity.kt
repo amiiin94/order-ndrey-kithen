@@ -2,6 +2,8 @@ package com.example.order_ndreykitchen
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,12 +16,15 @@ import com.example.order_ndreykitchen.fragment.ProfilFragment
 import com.example.order_ndreykitchen.fragment.RiwayatFragment
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        // In your activity's onCreate method or in a suitable lifecycle method
+        window.decorView.systemUiVisibility = SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.order_ndreykitchen.CompanionObject.Companion.formatToRupiah
 import com.example.order_ndreykitchen.Model.OrderItemModel
 import com.example.order_ndreykitchen.Model.OrderModel
 import com.example.order_ndreykitchen.OrderDetail
@@ -83,15 +84,5 @@ class OrderAdapter(private val orderList: List<OrderModel>, private val orderIte
         val amount_order: TextView = itemView.findViewById(R.id.amount_order)
 
 
-    }
-
-    private fun formatToRupiah(value: Int?): String {
-        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        formatRupiah.currency = Currency.getInstance("IDR")
-
-        val formattedValue =
-            value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
-
-        return "Rp. $formattedValue"
     }
 }

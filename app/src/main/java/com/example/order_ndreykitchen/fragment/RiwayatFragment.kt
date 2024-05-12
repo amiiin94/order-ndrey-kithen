@@ -63,8 +63,6 @@ class RiwayatFragment : Fragment() {
 
         rvOrder = view.findViewById(R.id.rvOrder)
 
-
-        getAllOrderList(requireContext())
         getOrderById(requireContext())
 
 
@@ -102,7 +100,7 @@ class RiwayatFragment : Fragment() {
                             )
                             orderList.add(orders)
                         }
-                        displayRecords()
+                        getOrderHistoryMenu(requireContext())
                         Log.d("RecordFragment", "recordList: $orderList")
                     }
                 } catch (e: JSONException) {
@@ -117,7 +115,7 @@ class RiwayatFragment : Fragment() {
         requestQueue.add(sr)
     }
 
-    private fun getAllOrderList(context: Context) {
+    private fun getOrderHistoryMenu(context: Context) {
         val urlEndPoints =
             "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/getOrderHistoryMenu"
         val sr = StringRequest(
@@ -141,6 +139,7 @@ class RiwayatFragment : Fragment() {
                             orderItemList.add(orderItem)
                         }
                         Log.d("OrderFragment", "recordList: $orderItemList")
+                        displayRecords()
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
