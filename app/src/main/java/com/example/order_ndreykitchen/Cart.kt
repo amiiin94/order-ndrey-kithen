@@ -25,6 +25,9 @@ import com.example.order_ndreykitchen.Model.CartModel
 import com.example.order_ndreykitchen.Model.MenuModel
 import org.json.JSONArray
 import org.json.JSONException
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 
 class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     private lateinit var sharedPreferences: SharedPreferences
@@ -160,7 +163,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
             }
         }
         val totalHargaTextView: TextView = findViewById(R.id.tvTotalHarga)
-        totalHargaTextView.text = "Rp$totalHarga"
+        totalHargaTextView.text = formatToRupiah(totalHarga)
     }
 
     private fun selectAllItems(isChecked: Boolean) {
@@ -172,6 +175,19 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
         // Calculate total price after selecting/deselecting all items
         calculateTotalHarga()
     }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        // Remove the ,00 at the end
+        val cleanedValue = formattedValue?.replace(",00", "")
+
+        return "Rp. $cleanedValue"
+    }
+
 
 
 

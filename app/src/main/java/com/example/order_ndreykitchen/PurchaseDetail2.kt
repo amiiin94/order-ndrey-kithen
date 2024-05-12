@@ -1,5 +1,7 @@
 package com.example.order_ndreykitchen
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -20,9 +22,11 @@ import com.example.order_ndreykitchen.Model.CartModel
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Date
-
+import java.util.Locale
 class PurchaseDetail2 : AppCompatActivity() {
     private lateinit var tvIdPesanan: TextView
     private lateinit var tvTotalHarga: TextView
@@ -55,7 +59,7 @@ class PurchaseDetail2 : AppCompatActivity() {
         payment = intent.getStringExtra("payment") ?: ""
         selectedItems = (intent.getSerializableExtra("selectedItems") as ArrayList<CartModel>?)!!
 
-        tvTotalHarga.text = totalHarga.toString()
+        tvTotalHarga.text = formatToRupiah(totalHarga)
 
         when (payment) {
             "dana" -> ivPayment.setImageResource(R.drawable.logo_dana)
@@ -72,6 +76,15 @@ class PurchaseDetail2 : AppCompatActivity() {
         btn_sudah_bayar.setOnClickListener {
             postIdRecord()
             putStatusOrder()
+            deleteCartByUserId()
+            // Redirect to the main activity
+            val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
+            startActivity(mainActivityIntent)
+        }
+
+        tvSalinNomor.setOnClickListener {
+            // Call function to copy text to clipboard
+            copyTextToClipboard(tvPaymentDetail.text.toString())
         }
 
         getLatestIdRecord()
@@ -241,10 +254,6 @@ class PurchaseDetail2 : AppCompatActivity() {
                 if (response == "\"Total harga updated successfully for the last document.\"") {
                     // Update successful
                     Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
-
-                    // Redirect to the main activity
-                    val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
-                    startActivity(mainActivityIntent)
                 } else {
                     // Display toast with the response message
                     Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
@@ -260,4 +269,44 @@ class PurchaseDetail2 : AppCompatActivity() {
         val requestQueue = Volley.newRequestQueue(applicationContext)
         requestQueue.add(sr)
     }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        // Remove the ,00 at the end
+        val cleanedValue = formattedValue?.replace(",00", "")
+
+        return "Rp. $cleanedValue"
+    }
+
+    private fun copyTextToClipboard(text: String) {
+        val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("text", text)
+        clipboardManager.setPrimaryClip(clipData)
+        Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deleteCartByUserId() {
+        val id_user = sharedPreferences.getString("id_user", "") ?: ""
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/deleteCartByUserId?id_user=$id_user"
+        val sr = StringRequest(
+            Request.Method.DELETE,
+            urlEndPoints,
+            { response ->
+                Toast.makeText(this@PurchaseDetail2, "Cart Deleted", Toast.LENGTH_SHORT).show()
+            },
+            { error ->
+                Toast.makeText(this@PurchaseDetail2, "Error deleting menu: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        )
+
+        val requestQueue = Volley.newRequestQueue(applicationContext)
+        requestQueue.add(sr)
+    }
+
+
+
 }

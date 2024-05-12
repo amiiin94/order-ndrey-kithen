@@ -12,6 +12,9 @@ import com.example.order_ndreykitchen.Model.CartModel
 import com.example.order_ndreykitchen.PurchaseDetail
 import com.example.order_ndreykitchen.R
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 
 class PurchaseDetailAdapter(private val selectedItems: List<CartModel>) : RecyclerView.Adapter<PurchaseDetailAdapter.ViewHolder>() {
 
@@ -24,7 +27,7 @@ class PurchaseDetailAdapter(private val selectedItems: List<CartModel>) : Recycl
         val cartItem = selectedItems[position]
 
         holder.namaCart.text = cartItem.nama_menu
-        holder.hargaCart.text = (cartItem.harga_menu?.times(cartItem.quantity)).toString()
+        holder.hargaCart.text = formatToRupiah(cartItem.harga_menu?.times(cartItem.quantity))
         holder.quantityTextView.text = "(" + cartItem.quantity.toString() + "x)"
     }
 
@@ -37,4 +40,16 @@ class PurchaseDetailAdapter(private val selectedItems: List<CartModel>) : Recycl
         val hargaCart: TextView = itemView.findViewById(R.id.tv_harga_menu)
         val quantityTextView: TextView = itemView.findViewById(R.id.tv_quantity_menu)
         }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        // Remove the ,00 at the end
+        val cleanedValue = formattedValue?.replace(",00", "")
+
+        return "Rp. $cleanedValue"
+    }
 }

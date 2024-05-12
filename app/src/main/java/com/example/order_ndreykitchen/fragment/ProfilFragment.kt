@@ -3,13 +3,17 @@ package com.example.order_ndreykitchen.fragment
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
+import com.example.order_ndreykitchen.Cart
+import com.example.order_ndreykitchen.EditProfile
 import com.example.order_ndreykitchen.MainActivity
 import com.example.order_ndreykitchen.R
 
@@ -28,6 +32,15 @@ class ProfilFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var btn_logout: FrameLayout
+    private lateinit var picture: TextView
+    private lateinit var tvName: TextView
+    private lateinit var keranjang: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var editProfil: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var keluar: androidx.constraintlayout.widget.ConstraintLayout
+    private lateinit var tvLihatSemua: TextView
+    private lateinit var sharedPreferences: SharedPreferences
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +59,7 @@ class ProfilFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // Initialize Items
-        btn_logout = view.findViewById(R.id.btn_logout)
+        initializeItems()
 
         // Logout
         btn_logout.setOnClickListener {
@@ -62,6 +74,36 @@ class ProfilFragment : Fragment() {
                 }
                 .show()
         }
+
+        val fullname = sharedPreferences.getString("fullname_user", "")
+        if (!fullname.isNullOrEmpty()) {
+            picture.text = fullname[0].toString().uppercase()
+        } else {
+            picture.visibility = View.GONE
+        }
+
+        tvName.text = fullname
+
+        keranjang.setOnClickListener {
+            val intent = Intent(requireContext(), Cart::class.java)
+            startActivity(intent)
+        }
+
+        editProfil.setOnClickListener {
+            val intent = Intent(requireContext(), EditProfile::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initializeItems() {
+        btn_logout = requireView().findViewById(R.id.btn_logout)
+        picture = requireView().findViewById(R.id.picture)
+        tvName = requireView().findViewById(R.id.tvName)
+        keranjang = requireView().findViewById(R.id.keranjang)
+        editProfil = requireView().findViewById(R.id.editProfil)
+        keluar = requireView().findViewById(R.id.keluar)
+        tvLihatSemua = requireView().findViewById(R.id.tvLihatSemua)
+        sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
     }
 
     private fun logout() {

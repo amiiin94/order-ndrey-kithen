@@ -16,6 +16,9 @@
         android:theme="@style/Theme.OrderNdreyKitchen"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
             android:name=".PurchaseDetail2"
             android:exported="false" />
         <activity

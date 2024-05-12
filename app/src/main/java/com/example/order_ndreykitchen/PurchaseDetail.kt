@@ -83,7 +83,7 @@ class PurchaseDetail : AppCompatActivity() {
         formatToRupiah(totalHarga)
 
         tvTotalHarga = findViewById(R.id.tvTotalHarga)
-        tvTotalHarga.text = totalHarga.toString()
+        tvTotalHarga.text = formatToRupiah(totalHarga)
 
         displayRecycleview()
         purchaseSelector()
@@ -108,7 +108,10 @@ class PurchaseDetail : AppCompatActivity() {
 
         val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
 
-        return "Rp. $formattedValue"
+        // Remove the ,00 at the end
+        val cleanedValue = formattedValue?.replace(",00", "")
+
+        return "Rp. $cleanedValue"
     }
 
     private fun displayRecycleview() {
@@ -275,6 +278,8 @@ class PurchaseDetail : AppCompatActivity() {
             }
         }
     }
+
+
 
 
 

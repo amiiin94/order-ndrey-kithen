@@ -16,6 +16,10 @@ import com.example.order_ndreykitchen.Cart
 import com.example.order_ndreykitchen.Model.CartModel
 import com.example.order_ndreykitchen.R
 import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
+
 class CartAdapter(private val cartItems: MutableList<CartModel>,
                   private val quantityChangeListener: QuantityChangeListener,
                   private val activity: Cart,
@@ -32,7 +36,7 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
 
         holder.kategoriCart.text = cartItem.kategori_menu
         holder.namaCart.text = cartItem.nama_menu
-        holder.hargaCart.text = cartItem.harga_menu.toString()
+        holder.hargaCart.text = formatToRupiah(cartItem.harga_menu)
         holder.quantityTextView.text = cartItem.quantity.toString()
         Picasso.get().load(cartItem.image_menu).into(holder.imageCart)
 
@@ -126,6 +130,19 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, itemCount)
     }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        // Remove the ,00 at the end
+        val cleanedValue = formattedValue?.replace(",00", "")
+
+        return "Rp. $cleanedValue"
+    }
+
 
     interface QuantityChangeListener {
         fun onQuantityChanged()
