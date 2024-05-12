@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val berandaFragment = BerandaFragment()
+        val menuFragment = MenuFragment()
+        val riwayatFragment = RiwayatFragment()
+        val profilFragment = ProfilFragment()
+
+
+
+
         val sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE)
         val email_user = sharedPreferences.getString("email_user", "")
 
@@ -80,4 +88,6 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+
 }

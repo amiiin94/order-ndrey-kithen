@@ -1,6 +1,7 @@
 package com.example.order_ndreykitchen.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.order_ndreykitchen.Model.OrderItemModel
 import com.example.order_ndreykitchen.Model.OrderModel
+import com.example.order_ndreykitchen.OrderDetail
 import com.example.order_ndreykitchen.R
 import java.text.NumberFormat
 import java.util.Currency
@@ -53,16 +55,17 @@ class OrderAdapter(private val orderList: List<OrderModel>, private val orderIte
             holder.itemSize.visibility = View.INVISIBLE
         }
 
-//        holder.detail_order.setOnClickListener {
-//            Intent(context, RecordDetailPemasukan::class.java).apply {
-//                putExtra("id_record", record.id_record)
-//                putExtra("amount_record", record.amount_record)
-//                putExtra("date_record", record.date_record)
-//                putExtra("note_record", record.note_record)
-//            }
-//
-//            context.startActivity(detailActivityIntent)
-//        }
+        holder.detail_order.setOnClickListener {
+            val detailActivityIntent = Intent(context, OrderDetail::class.java).apply {
+                putExtra("id_order", order.id_order)
+                putExtra("date_order", order.date_order)
+                putExtra("amount_order", order.amount_order)
+                putExtra("status_order", order.status_order)
+                putExtra("Payment_order", order.payment_order)
+            }
+
+            context.startActivity(detailActivityIntent)
+        }
     }
 
 

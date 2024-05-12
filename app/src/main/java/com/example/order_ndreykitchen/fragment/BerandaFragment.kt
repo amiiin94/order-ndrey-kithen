@@ -173,11 +173,17 @@ class BerandaFragment : Fragment() {
     }
 
     private fun displayMenu() {
-        // Set GridLayoutManager with horizontal orientation and 1 column
+        // Set LinearLayoutManager with horizontal orientation and 1 column
         rvMenu.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
 
         // Set adapter for RecyclerView
         val menuAdapter = MenuAdapter(menuList)
         rvMenu.adapter = menuAdapter
+
+        // Add space between items in RecyclerView
+        val horizontalSpaceInPixels = resources.getDimensionPixelSize(R.dimen.horizontal_space_between_items)
+        val verticalSpaceInPixels = resources.getDimensionPixelSize(R.dimen.vertical_space_between_items)
+        rvMenu.addItemDecoration(SpaceItemDecoration(horizontalSpaceInPixels, verticalSpaceInPixels))
     }
+
 }

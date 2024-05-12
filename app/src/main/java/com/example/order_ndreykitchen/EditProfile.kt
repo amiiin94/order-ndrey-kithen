@@ -56,7 +56,6 @@ class EditProfile : AppCompatActivity() {
         tvSimpan.setOnClickListener {
             putUserById()
         }
-
     }
 
     private fun initiliazeItems() {
@@ -73,7 +72,7 @@ class EditProfile : AppCompatActivity() {
     }
 
     private fun putUserById() {
-        val userId = sharedPreferences.getString("user_id", "")
+        val userId = sharedPreferences.getString("id_user", "")
         val fullname = etFullname.text.toString()
         val notelp = etNoTelp.text.toString()
 
@@ -96,6 +95,9 @@ class EditProfile : AppCompatActivity() {
                         editor.apply()
 
                         Toast.makeText(this@EditProfile, "Profile has been updated", Toast.LENGTH_SHORT).show()
+//                        val mainActivityIntent = Intent(this, MainActivity::class.java)
+//                        mainActivityIntent.putExtra("selected_tab", R.id.profil)
+//                        startActivity(mainActivityIntent)
                     }
                 } catch (e: JSONException) {
                     e.printStackTrace()
