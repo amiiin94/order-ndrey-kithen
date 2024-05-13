@@ -5,15 +5,20 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
@@ -23,6 +28,9 @@ import com.example.order_ndreykitchen.Model.CartModel
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Currency
@@ -41,6 +49,10 @@ class PurchaseDetail2 : AppCompatActivity() {
     private lateinit var selectedItems: ArrayList<CartModel> // Declare selectedItems property here
     private lateinit var sharedPreferences: SharedPreferences
     private var id_order: String = ""
+    private lateinit var qris: LinearLayout
+    private lateinit var qrisgone: LinearLayout
+    private lateinit var qriscode: ImageView
+    private lateinit var unduhqris: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +79,11 @@ class PurchaseDetail2 : AppCompatActivity() {
             "dana" -> ivPayment.setImageResource(R.drawable.logo_dana)
             "shopeepay" -> ivPayment.setImageResource(R.drawable.logo_shopeepay)
             "gopay" -> ivPayment.setImageResource(R.drawable.logo_gopay)
-            "qris" -> ivPayment.setImageResource(R.drawable.qris_logo)
+            "qris" -> {
+                // Show qris layout and hide qrisgone layout
+                qris.visibility = View.VISIBLE
+                qrisgone.visibility = View.GONE
+            }
             // Add more cases if needed for other payment methods
             else -> {
                 // Default case if payment method is not recognized
@@ -89,6 +105,12 @@ class PurchaseDetail2 : AppCompatActivity() {
             copyTextToClipboard(tvPaymentDetail.text.toString())
         }
 
+        unduhqris.setOnClickListener {
+            // Call function to download the QR code
+            downloadQRCode()
+        }
+
+
         getLatestIdRecord()
     }
 
@@ -100,6 +122,10 @@ class PurchaseDetail2 : AppCompatActivity() {
         tvNamaPenjual = findViewById(R.id.tvNamaPenjual)
         tvSalinNomor = findViewById(R.id.tvSalinNomor)
         btn_sudah_bayar = findViewById(R.id.btn_sudah_bayar)
+        qris = findViewById(R.id.qris)
+        qrisgone = findViewById(R.id.qrisgone)
+        qriscode = findViewById(R.id.qriscode)
+        unduhqris = findViewById(R.id.unduhqris)
     }
 
     fun postIdRecord() {
@@ -309,6 +335,33 @@ class PurchaseDetail2 : AppCompatActivity() {
         requestQueue.add(sr)
     }
 
+    private fun downloadQRCode() {
+        // Get the QR code image from the ImageView
+        val qrCodeBitmap = qriscode.drawable.toBitmap()
 
+        // Define the directory and file name for saving the image
+        val directory = File(getExternalFilesDir(null), "QR Codes")
+        directory.mkdirs() // Create directory if it doesn't exist
+        val fileName = "qris_code.png"
+        val file = File(directory, fileName)
 
+        // Save the QR code image to external storage
+        try {
+            FileOutputStream(file).use { out ->
+                qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            }
+
+            // Notify the user that the download is successful
+            Toast.makeText(this@PurchaseDetail2, "QR Code saved to Photos", Toast.LENGTH_SHORT).show()
+
+            // Refresh the gallery so that the image appears in the Photos app
+            val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            mediaScanIntent.data = Uri.fromFile(file)
+            sendBroadcast(mediaScanIntent)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            // Notify the user if there's an error in saving the QR code
+            Toast.makeText(this@PurchaseDetail2, "Failed to save QR Code", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

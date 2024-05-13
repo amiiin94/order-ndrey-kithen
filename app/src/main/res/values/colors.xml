@@ -17,14 +17,14 @@
     <color name="biru_tua">#222B41</color>
     <color name="biru">#008CEB</color>
 
-    <color name="md_theme_primary">#8E4D2E</color>
+    <color name="md_theme_primary">#fff9881f</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#FFDBCC</color>
     <color name="md_theme_onPrimaryContainer">#351000</color>
     <color name="md_theme_secondary">#76574A</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
     <color name="md_theme_secondaryContainer">#FFDBCC</color>
-    <color name="md_theme_onSecondaryContainer">#2C160C</color>
+    <color name="md_theme_onSecondaryContainer">#F9881F</color>
     <color name="md_theme_tertiary">#665F30</color>
     <color name="md_theme_onTertiary">#FFFFFF</color>
     <color name="md_theme_tertiaryContainer">#EEE4A9</color>
