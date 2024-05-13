@@ -12,7 +12,7 @@
         android:icon="@drawable/selector_menu" />
 
     <item android:id="@+id/riwayat"
-        android:title="Riwayat"
+        android:title="Order"
         android:enabled="true"
         android:icon="@drawable/selector_riwayat" />
 

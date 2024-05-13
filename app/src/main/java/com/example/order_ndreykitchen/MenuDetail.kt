@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.order_ndreykitchen.fragment.RiwayatFragment
 import com.squareup.picasso.Picasso
 import org.json.JSONException
 import org.json.JSONObject
@@ -57,14 +58,30 @@ class MenuDetail : AppCompatActivity() {
         inizializeItems()
         showDataMenu()
 
+        val sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE)
+        val email_user = sharedPreferences.getString("email_user", "")
+
         btn_tambahKeranjang.setOnClickListener {
-            postCart(id_user, id_menu)
+
+            if (email_user.isNullOrEmpty()) {
+                // Email kosong, arahkan ke layar login
+                startActivity(Intent(this, Login::class.java))
+            } else {
+                postCart(id_user, id_menu)
+            }
+
         }
 
         btn_beliLangsung.setOnClickListener {
-            postCart(id_user, id_menu)
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
+            if (email_user.isNullOrEmpty()) {
+                startActivity(Intent(this, Login::class.java))
+            } else {
+                postCart(id_user, id_menu)
+                val intent = Intent(this, Cart::class.java)
+                startActivity(intent)
+            }
+
+
         }
     }
 

@@ -17,10 +17,14 @@ import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale
 
-class OrderAdapter(private val orderList: List<OrderModel>, private val orderItemList: List<OrderItemModel>) :
+class OrderAdapter(private var orderList: List<OrderModel>, private val orderItemList: List<OrderItemModel>) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
     private lateinit var context: Context
+    init {
+        // Reverse the order list
+        orderList = orderList.reversed()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context

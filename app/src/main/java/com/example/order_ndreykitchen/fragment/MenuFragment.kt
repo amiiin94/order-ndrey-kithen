@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -19,6 +20,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.order_ndreykitchen.Adapter.MenuAdapter
 import com.example.order_ndreykitchen.Cart
+import com.example.order_ndreykitchen.Login
 import com.example.order_ndreykitchen.Model.MenuModel
 import com.example.order_ndreykitchen.R
 import com.example.order_ndreykitchen.SpaceItemDecoration
@@ -66,11 +68,19 @@ class MenuFragment : Fragment() {
         // Inizialized
         rv_menu = view.findViewById(R.id.rv_menu)
 
+        val sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val email_user = sharedPreferences.getString("email_user", "")
+
+
         // Go to Keranjang
         btnKeranjang = view.findViewById(R.id.btnKeranjang)
         btnKeranjang.setOnClickListener {
-            val intent = Intent(requireContext(), Cart::class.java)
-            startActivity(intent)
+            if (email_user.isNullOrEmpty()) {
+                // Email kosong, arahkan ke layar login
+                startActivity(Intent(requireContext(), Login::class.java))
+            } else {
+                startActivity(Intent(requireContext(), Cart::class.java))
+            }
         }
 
         getAllMenus(requireContext())

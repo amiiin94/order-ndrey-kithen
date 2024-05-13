@@ -1,5 +1,7 @@
 package com.example.order_ndreykitchen
 
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import java.text.NumberFormat
 import java.util.Currency
 import java.util.Locale

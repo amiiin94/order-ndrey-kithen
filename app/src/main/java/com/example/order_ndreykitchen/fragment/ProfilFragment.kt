@@ -98,6 +98,11 @@ class ProfilFragment : Fragment() {
                 .show()
         }
 
+        // Handle clicks on "Lihat Semua"
+        tvLihatSemua.setOnClickListener {
+            (requireActivity() as MainActivity).binding.bottomNavigation.selectedItemId = R.id.riwayat
+        }
+
         val fullname = sharedPreferences.getString("fullname_user", "")
         if (!fullname.isNullOrEmpty()) {
             picture.text = fullname[0].toString().uppercase()

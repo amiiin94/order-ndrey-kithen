@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.order_ndreykitchen.Cart
+import com.example.order_ndreykitchen.Login
 import com.example.order_ndreykitchen.MenuDetail
 import com.example.order_ndreykitchen.Model.MenuModel
 import com.example.order_ndreykitchen.R
@@ -29,11 +33,13 @@ class MenuAdapter(private val menuList: MutableList<MenuModel>) :
     private lateinit var context: Context
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var id_user: String
+    private lateinit var email_user: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
         sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
         id_user = sharedPreferences.getString("id_user", "") ?: ""
+        email_user = sharedPreferences.getString("email_user", "") ?: ""
 
         val inflater = LayoutInflater.from(context)
         val menuView = inflater.inflate(R.layout.item_menu, parent, false)
@@ -61,7 +67,15 @@ class MenuAdapter(private val menuList: MutableList<MenuModel>) :
         }
 
         holder.btn_addToCart.setOnClickListener {
-            postCart(id_user, menu.id_menu.toString())
+            if (email_user.isNullOrEmpty()) {
+                // Email kosong, arahkan ke layar login
+                context.startActivity(Intent(context, Login::class.java))
+            } else {
+                postCart(id_user, menu.id_menu.toString())
+            }
+
+
+
         }
     }
 
