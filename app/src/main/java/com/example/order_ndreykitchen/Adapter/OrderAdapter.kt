@@ -33,14 +33,13 @@ class OrderAdapter(private var orderList: List<OrderModel>, private val orderIte
         return ViewHolder(orderView)
     }
 
-    // Inside onBindViewHolder method of RecordAdapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = orderList[position]
         holder.status_order.text = order.status_order
         holder.amount_order.text = formatToRupiah(order.amount_order)
         holder.date_order.text = order.date_order
 
-        // Find the corresponding ItemModel based on the record_id
+        // Find the corresponding ItemModel based on the order_id
         val correspondingItem = orderItemList.find { it.id_order == order.id_order }
 
         // Set item name
@@ -53,14 +52,15 @@ class OrderAdapter(private var orderList: List<OrderModel>, private val orderIte
         holder.quantity_order.text = firstItemQuantity.toString() + "x"
 
         // Get itemList size by id
-        val itemCount = orderList.count { it.id_order == order.id_order }
+        val itemCount = orderItemList.count { it.id_order == order.id_order }
         if (itemCount > 1) {
             holder.itemSize.text = "+${itemCount - 1} menu lainnya"
+            holder.itemSize.visibility = View.VISIBLE // Ensure it's visible if there are more items
         } else {
             holder.itemSize.visibility = View.INVISIBLE
         }
 
-        holder.detail_order.setOnClickListener {
+        holder.cvOrder.setOnClickListener {
             val detailActivityIntent = Intent(context, OrderDetail::class.java).apply {
                 putExtra("id_order", order.id_order)
                 putExtra("date_order", order.date_order)
@@ -74,6 +74,7 @@ class OrderAdapter(private var orderList: List<OrderModel>, private val orderIte
     }
 
 
+
     override fun getItemCount(): Int {
         return orderList.size
     }
@@ -84,9 +85,19 @@ class OrderAdapter(private var orderList: List<OrderModel>, private val orderIte
         val orderItem_order: TextView = itemView.findViewById(R.id.orderItem_order)
         val quantity_order: TextView = itemView.findViewById(R.id.quantity_order)
         val itemSize: TextView = itemView.findViewById(R.id.tvItemSize)
-        val detail_order: ImageView = itemView.findViewById(R.id.ivGoToDetail)
         val amount_order: TextView = itemView.findViewById(R.id.amount_order)
+        val cvOrder: androidx.cardview.widget.CardView = itemView.findViewById(R.id.cvorder)
 
 
+    }
+
+    private fun formatToRupiah(value: Int?): String {
+        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatRupiah.currency = Currency.getInstance("IDR")
+
+        val formattedValue =
+            value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
+
+        return "Rp. $formattedValue"
     }
 }

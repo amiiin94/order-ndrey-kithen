@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
@@ -53,6 +54,10 @@ class PurchaseDetail2 : AppCompatActivity() {
     private lateinit var qrisgone: LinearLayout
     private lateinit var qriscode: ImageView
     private lateinit var unduhqris: TextView
+    private lateinit var tvTimer: TextView
+    private lateinit var countDownTimer: CountDownTimer
+    private val totalTime = 10 * 60 * 1000L // 10 minutes in milliseconds
+    private lateinit var status: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +98,7 @@ class PurchaseDetail2 : AppCompatActivity() {
 
         btn_sudah_bayar.setOnClickListener {
             postIdRecord()
-            putStatusOrder()
+            putStatusOrder("Pesanan Diproses")
             deleteCartByUserId()
             // Redirect to the main activity
             val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
@@ -110,8 +115,8 @@ class PurchaseDetail2 : AppCompatActivity() {
             downloadQRCode()
         }
 
-
         getLatestIdRecord()
+        startTimer()
     }
 
     private fun findViewById() {
@@ -126,6 +131,9 @@ class PurchaseDetail2 : AppCompatActivity() {
         qrisgone = findViewById(R.id.qrisgone)
         qriscode = findViewById(R.id.qriscode)
         unduhqris = findViewById(R.id.unduhqris)
+        tvTimer = findViewById(R.id.tv_timer)
+        status = findViewById(R.id.status)
+
     }
 
     fun postIdRecord() {
@@ -270,25 +278,16 @@ class PurchaseDetail2 : AppCompatActivity() {
         requestQueue.add(sr)
     }
 
-    fun putStatusOrder() {
-        val status = "Pesanan Diproses"
-
+    private fun putStatusOrder(status: String) {
         val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/putStatusOrder?_id=$id_order&status=$status"
 
         val sr = StringRequest(
             Request.Method.PUT,
             urlEndPoints,
             { response ->
-                if (response == "\"Total harga updated successfully for the last document.\"") {
-                    // Update successful
-                    Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
-                } else {
-                    // Display toast with the response message
-                    Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
-                }
+                Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
             },
             { error ->
-                // Handle Volley error
                 error.printStackTrace()
                 Toast.makeText(this@PurchaseDetail2, "Failed: " + error.message, Toast.LENGTH_SHORT).show()
             }
@@ -363,5 +362,29 @@ class PurchaseDetail2 : AppCompatActivity() {
             // Notify the user if there's an error in saving the QR code
             Toast.makeText(this@PurchaseDetail2, "Failed to save QR Code", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun startTimer() {
+        countDownTimer = object : CountDownTimer(totalTime, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val minutes = millisUntilFinished / 1000 / 60
+                val seconds = (millisUntilFinished / 1000 % 60).toString().padStart(2, '0')
+                tvTimer.text = "$minutes:$seconds"
+            }
+
+            override fun onFinish() {
+                tvTimer.text = "00:00"
+                btn_sudah_bayar.isEnabled = false
+                btn_sudah_bayar.setBackgroundColor(getColor(R.color.abu))
+                status.text = "Pesanan Kadaluarsa"
+                putStatusOrder("Pesanan Dibatalkan")
+            }
+        }
+        countDownTimer.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer.cancel()
     }
 }
