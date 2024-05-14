@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5sp"
             android:paddingHorizontal="16dp"
-            android:text="Jangan tekan tombol kembali pada aplikasi ini atau tidak dapat dilanjutkan!"
+            android:text="Jangan tekan tombol kembali atau pembayaran tidak dapat dilanjutkan!"
             android:textColor="@color/orange_mainColor"
             android:textSize="10sp" />
 

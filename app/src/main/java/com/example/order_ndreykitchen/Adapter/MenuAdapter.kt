@@ -120,7 +120,7 @@ class MenuAdapter(private val menuList: MutableList<MenuModel>) :
                         // Registration successful
                         Toast.makeText(
                             context,
-                            "Added Product to Cart!",
+                            "Menu ditambah",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

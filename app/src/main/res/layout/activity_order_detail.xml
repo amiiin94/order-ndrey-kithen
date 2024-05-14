@@ -25,6 +25,7 @@
         android:layout_marginStart="12dp"
         android:text="Detail Order"
         android:textSize="16sp"
+        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintBottom_toBottomOf="@+id/back_btn"
         app:layout_constraintStart_toEndOf="@+id/back_btn"
         app:layout_constraintTop_toTopOf="@+id/back_btn" />
@@ -34,7 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +54,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sedang Diproses" />
+                android:text="Sedang Diproses"
+                android:fontFamily="@font/poppins_semibold"/>
 
             <TextView
                 android:id="@+id/tvDate"
@@ -68,7 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Menu yang dipesan" />
+            android:text="Menu yang dipesan"
+            android:fontFamily="@font/poppins_semibold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvItem"
@@ -85,7 +90,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pembayaran" />
+                android:text="Pembayaran"
+                android:fontFamily="@font/poppins_semibold"/>
 
             <TextView
                 android:id="@+id/tvPayment"
@@ -106,7 +112,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total Harga" />
+                android:text="Total Harga"
+                android:fontFamily="@font/poppins_semibold"/>
 
             <TextView
                 android:id="@+id/tvTotalHarga"
@@ -114,7 +121,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="Rp32000" />
+                android:text="Rp32000"
+                android:textColor="@color/orange_mainColor"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -235,11 +235,11 @@ class PurchaseDetail : AppCompatActivity() {
                         Toast.makeText(this@PurchaseDetail, errorMessage, Toast.LENGTH_SHORT).show()
                     } else {
                         // Registration successful
-                        Toast.makeText(
-                            this@PurchaseDetail,
-                            "record id have been added",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@PurchaseDetail,
+//                            "record id have been added",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                         postItemsWithQuantity()
                     }
                 } catch (e: JSONException) {
@@ -273,7 +273,7 @@ class PurchaseDetail : AppCompatActivity() {
                         Toast.makeText(this@PurchaseDetail, errorMessage, Toast.LENGTH_SHORT).show()
                     } else {
                         // Post successful
-                        Toast.makeText(this@PurchaseDetail, "Item posted successfully", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@PurchaseDetail, "Item posted successfully", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     // Handle JSON parsing error

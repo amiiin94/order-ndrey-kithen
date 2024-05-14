@@ -160,11 +160,11 @@ class PurchaseDetail2 : AppCompatActivity() {
                         Toast.makeText(this@PurchaseDetail2, errorMessage, Toast.LENGTH_SHORT).show()
                     } else {
                         // Registration successful
-                        Toast.makeText(
-                            this@PurchaseDetail2,
-                            "record id have been added",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@PurchaseDetail2,
+//                            "record id have been added",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                         putAmount(totalHarga)
                         postItemsWithQuantity()
                     }
@@ -191,7 +191,7 @@ class PurchaseDetail2 : AppCompatActivity() {
             { response ->
                 if (response == "\"Total harga updated successfully for the last document.\"") {
                     // Update successful
-                    Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@PurchaseDetail2, "Amount Updated", Toast.LENGTH_SHORT).show()
 
                 } else {
                     // Display toast with the response message
@@ -226,7 +226,7 @@ class PurchaseDetail2 : AppCompatActivity() {
                         Toast.makeText(this@PurchaseDetail2, errorMessage, Toast.LENGTH_SHORT).show()
                     } else {
                         // Post successful
-                        Toast.makeText(this@PurchaseDetail2, "Item posted successfully", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@PurchaseDetail2, "Item posted successfully", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: JSONException) {
                     // Handle JSON parsing error
@@ -291,7 +291,7 @@ class PurchaseDetail2 : AppCompatActivity() {
             Request.Method.PUT,
             urlEndPoints,
             { response ->
-                Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@PurchaseDetail2, response, Toast.LENGTH_SHORT).show()
             },
             { error ->
                 error.printStackTrace()
@@ -319,7 +319,7 @@ class PurchaseDetail2 : AppCompatActivity() {
         val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText("text", text)
         clipboardManager.setPrimaryClip(clipData)
-        Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Nomor disalin", Toast.LENGTH_SHORT).show()
     }
 
     private fun deleteCartByUserId() {
@@ -329,7 +329,7 @@ class PurchaseDetail2 : AppCompatActivity() {
             Request.Method.DELETE,
             urlEndPoints,
             { response ->
-                Toast.makeText(this@PurchaseDetail2, "Cart Deleted", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@PurchaseDetail2, "Cart Deleted", Toast.LENGTH_SHORT).show()
             },
             { error ->
                 Toast.makeText(this@PurchaseDetail2, "Error deleting menu: ${error.message}", Toast.LENGTH_SHORT).show()

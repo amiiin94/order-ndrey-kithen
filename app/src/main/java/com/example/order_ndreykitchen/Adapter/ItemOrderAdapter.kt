@@ -36,7 +36,7 @@ class ItemOrderAdapter(private val itemList: List<OrderItemModel>) :
 
         fun bind(item: OrderItemModel) {
             tvItem.text = item.item_orderItem
-            tvQuantity.text = "(" + item.quantity_orderItem.toString() + " x)"
+            tvQuantity.text = " (" + item.quantity_orderItem.toString() + "x)"
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:background="@drawable/gradien_color">
+    android:background="@color/abu_bg">
 
     <ImageView
         android:id="@+id/imageView28"
@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_nama_white" />
+        app:srcCompat="@drawable/logo_ndreykithen" />
 </androidx.constraintlayout.widget.ConstraintLayout>

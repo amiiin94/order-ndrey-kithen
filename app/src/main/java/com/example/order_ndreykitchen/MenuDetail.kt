@@ -141,7 +141,7 @@ class MenuDetail : AppCompatActivity() {
                         // Registration successful
                         Toast.makeText(
                             this,
-                            "Added Product to Cart!",
+                            "Menu berhasil ditambah",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

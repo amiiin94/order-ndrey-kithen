@@ -97,6 +97,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Keranjang"
+                            android:fontFamily="@font/poppins_semibold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView21"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -139,6 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Edit Profil"
+                            android:fontFamily="@font/poppins_semibold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ivEditProfil"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -182,6 +184,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:text="Keluar"
+                            android:fontFamily="@font/poppins_semibold"
                             android:textColor="@color/merah_gelap"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ivLogout"

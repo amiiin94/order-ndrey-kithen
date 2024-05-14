@@ -99,7 +99,7 @@ class EditProfile : AppCompatActivity() {
                         editor.putString("notelp_user", notelp)
                         editor.apply()
 
-                        Toast.makeText(this@EditProfile, "Profile has been updated", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@EditProfile, "Profile berhasil diubah", Toast.LENGTH_SHORT).show()
 //                        val mainActivityIntent = Intent(this, MainActivity::class.java)
 //                        mainActivityIntent.putExtra("selected_tab", R.id.profil)
 //                        startActivity(mainActivityIntent)

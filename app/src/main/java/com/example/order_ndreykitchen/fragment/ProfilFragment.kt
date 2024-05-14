@@ -151,7 +151,7 @@ class ProfilFragment : Fragment() {
         startActivity(intent)
         requireActivity().finish()
 
-        Toast.makeText(requireContext(), "Anda berhasil keluar", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), "Anda berhasil keluar", Toast.LENGTH_SHORT).show()
     }
 
     private fun getOrderById(context: Context) {

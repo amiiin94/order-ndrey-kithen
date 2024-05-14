@@ -113,7 +113,7 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
             Request.Method.DELETE,
             urlEndPoints,
             { response ->
-                Toast.makeText(context, "Menu deleted successfully", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "Menu deleted successfully", Toast.LENGTH_SHORT).show()
                 removeItem(position)
             },
             { error ->

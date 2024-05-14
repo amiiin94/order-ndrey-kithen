@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,7 @@ class RiwayatFragment : Fragment() {
     private val orderItemList = mutableListOf<OrderItemModel>()
     private lateinit var rvOrder: RecyclerView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var ivRefresh: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +64,19 @@ class RiwayatFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
 
         rvOrder = view.findViewById(R.id.rvOrder)
+        rvOrder.layoutManager = GridLayoutManager(requireContext(), 1)
+
+        val horizontalSpace =resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
+        val verticalSpace = resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
+        rvOrder.addItemDecoration(SpaceItemDecoration(horizontalSpace, verticalSpace))
 
         getOrderById(requireContext())
+
+        ivRefresh = view.findViewById(R.id.ivRefresh)
+        ivRefresh.setOnClickListener {
+            getOrderById(requireContext())
+            Toast.makeText(requireContext(), "Refreshed", Toast.LENGTH_SHORT).show()
+        }
 
 
     }
@@ -155,12 +168,6 @@ class RiwayatFragment : Fragment() {
     }
 
     private fun displayRecords() {
-        rvOrder.layoutManager = GridLayoutManager(requireContext(), 1)
-
-        val horizontalSpace =resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
-        val verticalSpace = resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
-        rvOrder.addItemDecoration(SpaceItemDecoration(horizontalSpace, verticalSpace))
-
         val orderAdapter = OrderAdapter(orderList, orderItemList)
         rvOrder.adapter = orderAdapter
     }

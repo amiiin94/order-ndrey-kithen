@@ -78,17 +78,17 @@ class Register : AppCompatActivity() {
                         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
                     } else {
                         // If no error message, registration is successful
-                        Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this, "Registrasi berhasil!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, Login::class.java))
                     }
                 } catch (e: JSONException) {
                     // If there's a JSON parsing error, display a generic registration failed message
-                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Registrasi gagal", Toast.LENGTH_SHORT).show()
                 }
 
             },
             { error ->
-                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Registrasi gagal", Toast.LENGTH_SHORT).show()
             }
         )
 

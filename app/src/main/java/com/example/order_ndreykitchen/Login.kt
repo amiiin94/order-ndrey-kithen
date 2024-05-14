@@ -86,15 +86,13 @@ class Login : AppCompatActivity() {
                     editor.putString("password_user", password_user)
                     editor.apply()
 
-                    val id_user1 = sharedPreferences.getString("id_user", "")
 
-
-                    Toast.makeText(this@Login, "Login successful!", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@Login, "Login successful!", Toast.LENGTH_SHORT).show()
 
                     val profileIntent = Intent(this@Login, MainActivity::class.java)
                     startActivity(profileIntent)
                 } catch (e: JSONException) {
-                    Toast.makeText(this@Login, "Login Unsuccessful!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Login, "Login gagal", Toast.LENGTH_SHORT).show()
                 }
             },
             { error ->
