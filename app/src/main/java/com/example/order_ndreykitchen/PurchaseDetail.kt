@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -45,6 +46,8 @@ class PurchaseDetail : AppCompatActivity() {
     private lateinit var purchase_shopeepay: FrameLayout
     private lateinit var purchase_gopay: FrameLayout
     private lateinit var purchase_qris: FrameLayout
+    private lateinit var purchase_bri: FrameLayout
+    private lateinit var btn_back: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +62,10 @@ class PurchaseDetail : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val id_user = sharedPreferences.getString("id_user", "") ?: ""
 
+        btn_back = findViewById(R.id.btn_back)
+        btn_back.setOnClickListener {
+            startActivity(Intent(this@PurchaseDetail, Cart::class.java))
+        }
 
         id_user?.let { Log.d("id_user", it) }
 
@@ -133,6 +140,7 @@ class PurchaseDetail : AppCompatActivity() {
         purchase_shopeepay = findViewById(R.id.purchase_shopeepay)
         purchase_gopay = findViewById(R.id.purchase_gopay)
         purchase_qris = findViewById(R.id.purchase_qris)
+        purchase_bri = findViewById(R.id.purchase_bri)
 
         val defaultSelected = purchase_dana // Set default selected item
 
@@ -165,6 +173,14 @@ class PurchaseDetail : AppCompatActivity() {
                 resetSelection()
                 selectPurchaseMethod(purchase_qris)
                 payment = "qris" // Set payment for purchase_qris
+            }
+        }
+
+        purchase_bri.setOnClickListener {
+            if (!purchase_bri.isSelected) {
+                resetSelection()
+                selectPurchaseMethod(purchase_bri)
+                payment = "Bank BRI" // Set payment for purchase_dana
             }
         }
 

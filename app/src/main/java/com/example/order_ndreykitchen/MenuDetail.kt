@@ -80,8 +80,12 @@ class MenuDetail : AppCompatActivity() {
                 val intent = Intent(this, Cart::class.java)
                 startActivity(intent)
             }
+        }
 
-
+        btn_back.setOnClickListener {
+            val mainActivityIntent = Intent(this@MenuDetail, MainActivity::class.java)
+            mainActivityIntent.putExtra("selected_tab", R.id.menu)
+            startActivity(mainActivityIntent)
         }
     }
 

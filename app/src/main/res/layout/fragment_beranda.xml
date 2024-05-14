@@ -217,10 +217,17 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:layout_marginStart="16dp"
+                            android:id="@+id/imageView25"
+                            android:layout_marginEnd="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/bri" />
+
+                        <ImageView
                             android:id="@+id/imageView18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/logo_dana" />
 
@@ -242,6 +249,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:src="@drawable/logo_shopeepay" />
+
+
                     </LinearLayout>
                 </HorizontalScrollView>
 

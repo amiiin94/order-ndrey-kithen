@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -39,6 +40,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     var isFirstClick = true
     private lateinit var selectAll: CheckBox
     private lateinit var btn_bayar: FrameLayout
+    private lateinit var btn_back: ImageView
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +88,15 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
             } else {
                 // Show a toast message if no item is selected
                 Toast.makeText(this, "No item selected", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btn_back = findViewById(R.id.btn_back)
+        btn_back.setOnClickListener {
+            btn_back.setOnClickListener {
+                val mainActivityIntent = Intent(this@Cart, MainActivity::class.java)
+                mainActivityIntent.putExtra("selected_tab", R.id.menu)
+                startActivity(mainActivityIntent)
             }
         }
 

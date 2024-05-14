@@ -133,7 +133,7 @@ class RiwayatFragment : Fragment() {
                             val id_orderItem = orderItemJson.getString("_id")
                             val id_order = orderItemJson.getString("id_order")
                             val item_orderItem = orderItemJson.getString("item")
-                            val quantity_orderItem = orderItemJson.getString("quantity")
+                            val quantity_orderItem = orderItemJson.getInt("quantity")
 
                             val orderItem = OrderItemModel(id_orderItem, id_order, item_orderItem, quantity_orderItem)
                             orderItemList.add(orderItem)

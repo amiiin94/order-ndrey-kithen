@@ -57,6 +57,10 @@ class EditProfile : AppCompatActivity() {
         tvSimpan.setOnClickListener {
             putUserById()
         }
+
+        btn_back.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     private fun initiliazeItems() {

@@ -38,12 +38,23 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val berandaFragment = BerandaFragment()
-        val menuFragment = MenuFragment()
-        val riwayatFragment = RiwayatFragment()
-        val profilFragment = ProfilFragment()
+        val BerandaFragment = BerandaFragment()
+        val orderFragment = MenuFragment()
+        val RiwayatFragment = RiwayatFragment()
+        val ProfilFragment = ProfilFragment()
+
+        // Retrieve the selected tab ID from the intent
+        val selectedTabId = intent.getIntExtra("selected_tab", -1)
 
 
+        // Determine which fragment to show based on the selected tab ID
+        val initialFragment = when (selectedTabId) {
+            R.id.beranda -> BerandaFragment
+            R.id.menu -> orderFragment
+            R.id.riwayat -> RiwayatFragment
+            R.id.profil -> ProfilFragment
+            else -> BerandaFragment
+        }
 
 
         val sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE)

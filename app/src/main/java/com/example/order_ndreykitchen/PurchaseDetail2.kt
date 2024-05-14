@@ -89,6 +89,12 @@ class PurchaseDetail2 : AppCompatActivity() {
                 qris.visibility = View.VISIBLE
                 qrisgone.visibility = View.GONE
             }
+
+            "Bank BRI" -> {
+                ivPayment.setImageResource(R.drawable.bri)
+                tvPaymentDetail.text = "080101023934533"
+                tvNamaPenjual.text = "HENI NURHAENI"
+            }
             // Add more cases if needed for other payment methods
             else -> {
                 // Default case if payment method is not recognized

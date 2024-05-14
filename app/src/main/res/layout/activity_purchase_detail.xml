@@ -9,7 +9,7 @@
     tools:context=".PurchaseDetail">
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -27,9 +27,10 @@
         android:gravity="center"
         android:text="Pembayaran"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
-        app:layout_constraintStart_toEndOf="@+id/imageView13"
-        app:layout_constraintTop_toTopOf="@+id/imageView13" />
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="@+id/btn_back"
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/textView20"
@@ -40,7 +41,7 @@
         android:fontFamily="@font/poppins_semibold"
         android:text="Pembayaran bisa melalui"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -131,6 +132,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/qris_logo" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/purchase_bri"
+            android:layout_width="106dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/purchase_selector"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout2"
+            app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout2">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/bri" />
 
         </FrameLayout>
 
