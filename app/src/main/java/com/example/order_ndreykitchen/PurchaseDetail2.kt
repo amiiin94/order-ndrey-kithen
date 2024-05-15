@@ -18,13 +18,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.order_ndreykitchen.CompanionObject.Companion.formatToRupiah
 import com.example.order_ndreykitchen.Model.CartModel
 import org.json.JSONArray
 import org.json.JSONException
@@ -104,8 +104,8 @@ class PurchaseDetail2 : AppCompatActivity() {
 
         btn_sudah_bayar.setOnClickListener {
             postIdRecord()
+            deleteSelectedItems()
             putStatusOrder("Pesanan Diproses")
-            deleteCartByUserId()
             // Redirect to the main activity
             val mainActivityIntent = Intent(this@PurchaseDetail2, MainActivity::class.java)
             startActivity(mainActivityIntent)
@@ -123,6 +123,10 @@ class PurchaseDetail2 : AppCompatActivity() {
 
         getLatestIdRecord()
         startTimer()
+
+        for (cart in selectedItems) {
+            Log.d("PurchaseDetail2", "Cart ID: ${cart.id_cart}")
+        }
     }
 
     private fun findViewById() {
@@ -250,6 +254,12 @@ class PurchaseDetail2 : AppCompatActivity() {
         }
     }
 
+    private fun deleteSelectedItems() {
+        for (cart in selectedItems) {
+            deleteCartById(cart.id_cart)
+        }
+    }
+
     private fun getLatestIdRecord() {
         val id_user = sharedPreferences.getString("id_user", "") ?: ""
         val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/getLatestidOrderByIdUser?id_user=$id_user"
@@ -303,18 +313,6 @@ class PurchaseDetail2 : AppCompatActivity() {
         requestQueue.add(sr)
     }
 
-    private fun formatToRupiah(value: Int?): String {
-        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        formatRupiah.currency = Currency.getInstance("IDR")
-
-        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
-
-        // Remove the ,00 at the end
-        val cleanedValue = formattedValue?.replace(",00", "")
-
-        return "Rp. $cleanedValue"
-    }
-
     private fun copyTextToClipboard(text: String) {
         val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText("text", text)
@@ -322,21 +320,21 @@ class PurchaseDetail2 : AppCompatActivity() {
         Toast.makeText(this, "Nomor disalin", Toast.LENGTH_SHORT).show()
     }
 
-    private fun deleteCartByUserId() {
-        val id_user = sharedPreferences.getString("id_user", "") ?: ""
-        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/deleteCartByUserId?id_user=$id_user"
+    private fun deleteCartById(cartId: String?) {
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/deleteCartByCartId?_id=$cartId"
         val sr = StringRequest(
             Request.Method.DELETE,
             urlEndPoints,
             { response ->
-//                Toast.makeText(this@PurchaseDetail2, "Cart Deleted", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "berhasil delete cart", Toast.LENGTH_SHORT).show()
+
             },
             { error ->
-                Toast.makeText(this@PurchaseDetail2, "Error deleting menu: ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error deleting menu: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         )
 
-        val requestQueue = Volley.newRequestQueue(applicationContext)
+        val requestQueue = Volley.newRequestQueue(this.applicationContext)
         requestQueue.add(sr)
     }
 

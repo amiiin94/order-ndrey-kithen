@@ -100,11 +100,6 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
             }
         }
 
-
-
-
-
-
         getOrderById()
         calculateTotalHarga()
 

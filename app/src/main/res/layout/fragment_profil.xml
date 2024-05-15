@@ -339,6 +339,15 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:id="@+id/tvTidakAda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak ada data"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginTop="32dp"/>
+
 
             </LinearLayout>
         </FrameLayout>

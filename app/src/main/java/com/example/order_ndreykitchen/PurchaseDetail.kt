@@ -21,6 +21,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.order_ndreykitchen.Adapter.PurchaseDetailAdapter
+import com.example.order_ndreykitchen.CompanionObject.Companion.formatToRupiah
 import com.example.order_ndreykitchen.Model.CartModel
 import com.example.order_ndreykitchen.Model.OrderModel
 import org.json.JSONArray
@@ -111,18 +112,6 @@ class PurchaseDetail : AppCompatActivity() {
         totalHargaTextView.text = "Rp$totalHarga"
     }
 
-    private fun formatToRupiah(value: Int?): String {
-        val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        formatRupiah.currency = Currency.getInstance("IDR")
-
-        val formattedValue = value?.let { formatRupiah.format(it.toLong()).replace("Rp", "").trim() }
-
-        // Remove the ,00 at the end
-        val cleanedValue = formattedValue?.replace(",00", "")
-
-        return "Rp. $cleanedValue"
-    }
-
     private fun displayRecycleview() {
 
         rv.layoutManager = GridLayoutManager(this, 1)
@@ -205,12 +194,14 @@ class PurchaseDetail : AppCompatActivity() {
         purchase_shopeepay.isSelected = false
         purchase_gopay.isSelected = false
         purchase_qris.isSelected = false
+        purchase_bri.isSelected = false
 
         // Set default background drawable for all items
         purchase_dana.background = ContextCompat.getDrawable(this, R.drawable.purchase_bg)
         purchase_shopeepay.background = ContextCompat.getDrawable(this, R.drawable.purchase_bg)
         purchase_gopay.background = ContextCompat.getDrawable(this, R.drawable.purchase_bg)
         purchase_qris.background = ContextCompat.getDrawable(this, R.drawable.purchase_bg)
+        purchase_bri.background = ContextCompat.getDrawable(this, R.drawable.purchase_bg)
     }
 
     fun postIdOrder() {
@@ -296,12 +287,4 @@ class PurchaseDetail : AppCompatActivity() {
             }
         }
     }
-
-
-
-
-
-
-
-
 }

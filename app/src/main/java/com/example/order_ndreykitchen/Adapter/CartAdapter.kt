@@ -108,7 +108,7 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
     }
 
     private fun deleteCartById(cartId: String, position: Int) {
-        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/deleteCartById?_id=$cartId"
+        val urlEndPoints = "https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-kofjt/endpoint/deleteCartByCartId?_id=$cartId"
         val sr = StringRequest(
             Request.Method.DELETE,
             urlEndPoints,
