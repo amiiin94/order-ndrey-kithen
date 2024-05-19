@@ -53,6 +53,9 @@ class MenuAdapter(private val menuList: MutableList<MenuModel>) :
         holder.harga_menu.text = formatToRupiah(menu.harga_menu)
         if(menu.image_menu != "") {
             Picasso.get().load(menu.image_menu).into(holder.image_menu)
+        } else {
+            holder.image_menu.setImageResource(R.drawable.noimage) // Or any default image or null
+
         }
 
         holder.menu_detail.setOnClickListener {
