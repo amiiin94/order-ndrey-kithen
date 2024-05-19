@@ -51,7 +51,9 @@ class MenuAdapter(private val menuList: MutableList<MenuModel>) :
         val menu = menuList[position]
         holder.nama_menu.text = menu.nama_menu
         holder.harga_menu.text = formatToRupiah(menu.harga_menu)
-        Picasso.get().load(menu.image_menu).into(holder.image_menu)
+        if(menu.image_menu != "") {
+            Picasso.get().load(menu.image_menu).into(holder.image_menu)
+        }
 
         holder.menu_detail.setOnClickListener {
             val intent = Intent(context, MenuDetail::class.java).apply {

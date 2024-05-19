@@ -117,7 +117,9 @@ class MenuDetail : AppCompatActivity() {
         tv_kategori_menu_detail.setText(kategori)
         tv_harga_menu_detail.setText(formatToRupiah(harga))
         tv_deskripsi_menu_detail.setText(deskripsi)
-        Picasso.get().load(image).into(iv_image_menu_detail)
+        if(image != "") {
+            Picasso.get().load(image).into(iv_image_menu_detail)
+        }
         tvNamaMenu.setText(nama)
 
     }
