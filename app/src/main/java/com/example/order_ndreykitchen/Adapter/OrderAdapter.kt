@@ -66,7 +66,7 @@ class OrderAdapter(private var orderList: List<OrderModel>, private val orderIte
                 putExtra("date_order", order.date_order)
                 putExtra("amount_order", order.amount_order)
                 putExtra("status_order", order.status_order)
-                putExtra("Payment_order", order.payment_order)
+                putExtra("payment_order", order.payment_order)
             }
 
             context.startActivity(detailActivityIntent)
