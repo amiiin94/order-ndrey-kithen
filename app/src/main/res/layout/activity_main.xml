@@ -25,14 +25,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        >
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/navbar" />
+            app:menu="@menu/navbar"
+            android:background="@drawable/gradien_color"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

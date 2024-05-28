@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.Currency
 import java.util.Date
 import java.util.Locale
+@Suppress("DEPRECATION")
 class PurchaseDetail2 : AppCompatActivity() {
     private lateinit var tvIdPesanan: TextView
     private lateinit var tvTotalHarga: TextView
@@ -127,6 +128,13 @@ class PurchaseDetail2 : AppCompatActivity() {
         for (cart in selectedItems) {
             Log.d("PurchaseDetail2", "Cart ID: ${cart.id_cart}")
         }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        putStatusOrder("Pesanan Dibatalkan")
+        startActivity(Intent(this, MainActivity::class.java))
+        super.onBackPressed()
     }
 
     private fun findViewById() {

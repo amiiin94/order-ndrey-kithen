@@ -1,6 +1,7 @@
 package com.example.order_ndreykitchen.Adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,8 +45,6 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
             val cartItem = cartItems[position]
             deleteCartById(cartItem.id_cart.toString(), position)
         }
-
-
 
     }
 

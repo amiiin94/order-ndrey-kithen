@@ -36,8 +36,7 @@ class Cart : AppCompatActivity(), CartAdapter.QuantityChangeListener {
     private lateinit var id_user: String
     private val cartList = mutableListOf<CartModel>()
     private lateinit var rvCart: RecyclerView
-    private var totalHarga = 0 // Declare totalHarga property here
-    var isFirstClick = true
+    private var totalHarga = 0
     private lateinit var selectAll: CheckBox
     private lateinit var btn_bayar: FrameLayout
     private lateinit var btn_back: ImageView

@@ -32,11 +32,6 @@ import org.json.JSONException
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -105,11 +100,8 @@ class MenuFragment : Fragment() {
         val searchQuery = arguments?.getString("searchQuery")
 
         if (!searchQuery.isNullOrEmpty()) {
-            // Perform search using the received query
-            // Call the appropriate function here to search menus by name
             getMenuByName(requireContext(), searchQuery)
         } else {
-            // Load all menus by default
             getAllMenus(requireContext())
         }
 
