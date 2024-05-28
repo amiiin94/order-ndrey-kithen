@@ -41,7 +41,7 @@ class PurchaseDetail : AppCompatActivity() {
     private lateinit var tvTotalHarga: TextView
     private lateinit var rv: RecyclerView
     private lateinit var sharedPreferences: SharedPreferences
-    private var payment: String = "dana"
+    private var payment: String = "Dana"
 
     private lateinit var purchase_dana: FrameLayout
     private lateinit var purchase_shopeepay: FrameLayout
@@ -117,7 +117,7 @@ class PurchaseDetail : AppCompatActivity() {
         rv.layoutManager = GridLayoutManager(this, 1)
 
         val horizontalSpace =resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
-        val verticalSpace = resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
+        val verticalSpace = resources.getDimensionPixelSize(R.dimen.vertical_space_between_items)
         rv.addItemDecoration(SpaceItemDecoration(horizontalSpace, verticalSpace))
 
         val cartAdapter = PurchaseDetailAdapter(selectedItems)
@@ -137,7 +137,7 @@ class PurchaseDetail : AppCompatActivity() {
             if (!purchase_dana.isSelected) {
                 resetSelection()
                 selectPurchaseMethod(purchase_dana)
-                payment = "dana" // Set payment for purchase_dana
+                payment = "Dana" // Set payment for purchase_dana
             }
         }
 
@@ -145,7 +145,7 @@ class PurchaseDetail : AppCompatActivity() {
             if (!purchase_shopeepay.isSelected) {
                 resetSelection()
                 selectPurchaseMethod(purchase_shopeepay)
-                payment = "shopeepay" // Set payment for purchase_shopeepay
+                payment = "Shopeepay" // Set payment for purchase_shopeepay
             }
         }
 
@@ -153,7 +153,7 @@ class PurchaseDetail : AppCompatActivity() {
             if (!purchase_gopay.isSelected) {
                 resetSelection()
                 selectPurchaseMethod(purchase_gopay)
-                payment = "gopay" // Set payment for purchase_gopay
+                payment = "Gopay" // Set payment for purchase_gopay
             }
         }
 
@@ -161,7 +161,7 @@ class PurchaseDetail : AppCompatActivity() {
             if (!purchase_qris.isSelected) {
                 resetSelection()
                 selectPurchaseMethod(purchase_qris)
-                payment = "qris" // Set payment for purchase_qris
+                payment = "Qris" // Set payment for purchase_qris
             }
         }
 

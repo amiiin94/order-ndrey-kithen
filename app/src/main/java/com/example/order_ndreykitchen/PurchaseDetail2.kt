@@ -82,10 +82,10 @@ class PurchaseDetail2 : AppCompatActivity() {
         tvTotalHarga.text = formatToRupiah(totalHarga)
 
         when (payment) {
-            "dana" -> ivPayment.setImageResource(R.drawable.logo_dana)
-            "shopeepay" -> ivPayment.setImageResource(R.drawable.logo_shopeepay)
-            "gopay" -> ivPayment.setImageResource(R.drawable.logo_gopay)
-            "qris" -> {
+            "Dana" -> ivPayment.setImageResource(R.drawable.logo_dana)
+            "Shopeepay" -> ivPayment.setImageResource(R.drawable.logo_shopeepay)
+            "Gopay" -> ivPayment.setImageResource(R.drawable.logo_gopay)
+            "Qris" -> {
                 // Show qris layout and hide qrisgone layout
                 qris.visibility = View.VISIBLE
                 qrisgone.visibility = View.GONE

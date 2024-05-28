@@ -4,6 +4,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColorHint">@color/black</item>
 
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
@@ -51,5 +52,12 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+    </style>
+
+    <style name="hintColor" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:drawableStart">@color/black</item>
+        <!-- Change the accent color -->
+        <!-- Add other custom attributes as needed -->
     </style>
 </resources>

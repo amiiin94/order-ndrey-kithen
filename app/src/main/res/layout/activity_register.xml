@@ -44,13 +44,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:startIconDrawable="@drawable/icon_nama_panjang">
+        app:startIconDrawable="@drawable/icon_nama_panjang"
+        app:startIconTint="@color/black"
+        style="@style/hintColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textinputEt_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Panjang"
+            android:textColor="@color/black"
             android:paddingStart="48dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +70,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_fullname"
-        app:startIconDrawable="@drawable/icon_notlp">
+        app:startIconDrawable="@drawable/icon_notlp"
+        app:startIconTint="@color/black"
+        style="@style/hintColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textinputEt_notelp"
@@ -75,6 +80,7 @@
             android:layout_height="wrap_content"
             android:hint="No Telephone"
             android:inputType="phone"
+            android:textColor="@color/black"
             android:paddingStart="48dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,13 +97,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_notelp"
-        app:startIconDrawable="@drawable/icon_email">
+        app:startIconDrawable="@drawable/icon_email"
+        app:startIconTint="@color/black"
+        style="@style/hintColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textinputEt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:textColor="@color/black"
             android:inputType="textEmailAddress"
             android:paddingStart="48dp" />
 
@@ -116,13 +125,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_email"
-        app:startIconDrawable="@drawable/icon_password">
+        app:startIconDrawable="@drawable/icon_password"
+        app:startIconTint="@color/black"
+        style="@style/hintColor">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textinputEt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Kata Sandi"
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:paddingStart="48dp" />
 
