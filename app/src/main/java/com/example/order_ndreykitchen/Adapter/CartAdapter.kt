@@ -39,7 +39,13 @@ class CartAdapter(private val cartItems: MutableList<CartModel>,
         holder.namaCart.text = cartItem.nama_menu
         holder.hargaCart.text = formatToRupiah(cartItem.harga_menu)
         holder.quantityTextView.text = cartItem.quantity.toString()
-        Picasso.get().load(cartItem.image_menu).into(holder.imageCart)
+        if(cartItem.image_menu != "") {
+            Picasso.get().load(cartItem.image_menu).into(holder.imageCart)
+        } else {
+            holder.imageCart.setImageResource(R.drawable.noimage) // Or any default image or null
+
+        }
+
 
         holder.imageViewDelete.setOnClickListener {
             val cartItem = cartItems[position]
